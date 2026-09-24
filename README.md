@@ -16,6 +16,7 @@ source forks used by the collection-market stack.
 | `upstream/raydium-clmm` | Concentrated-liquidity collection pools |
 | `programs/isotope-launch` | Launch and graduation orchestration |
 | `programs/isotope-ve` | Vote escrow, gauges, fee claims, treasury recycling |
+| `programs/creator-inbox` | Pinocchio: Stonk creator-fee SOL/WSOL settlement and per-meme contribution accounting |
 | `upstream/dynamic-bonding-curve` | Meteora source and integration test harness |
 | `upstream/ray-gauges` | Gauge, reactor, and LP-escrow research fork |
 | `program` | Original collection-AMM prototype |
@@ -39,6 +40,9 @@ Run `npm ci --prefix site`, `npm run build --prefix site`, and `npm test --prefi
 Its published routes include [protocol maths](https://onlykings.fun/docs/) and
 [Solana stablecoin research](https://onlykings.fun/docs/stablecoins/).
 Financial actions remain closed pending funding and verified contract deployment.
+
+The new Stonk → creator LST route has its own [integration and test guide](docs/STONK-INBOX.md).
+It is built locally and has no production deployment yet.
 
 For the inherited full trading interface and SDK development:
 

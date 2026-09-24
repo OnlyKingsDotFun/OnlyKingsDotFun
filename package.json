@@ -3,7 +3,8 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "testnet": "node scripts/testnet.mjs"
+    "testnet": "node scripts/testnet.mjs",
+    "test:inbox-client": "node --test scripts/creator-inbox.test.mjs"
   },
   "dependencies": {
     "@solana/kit": "^8.3.0",

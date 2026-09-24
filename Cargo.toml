@@ -1,5 +1,5 @@
 [workspace]
-members = ["program", "programs/isotope-launch", "programs/isotope-ve"]
+members = ["program", "programs/isotope-launch", "programs/isotope-ve", "programs/creator-inbox"]
 resolver = "2"
 
 [workspace.package]

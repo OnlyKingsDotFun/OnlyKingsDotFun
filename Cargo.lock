@@ -935,6 +935,23 @@ dependencies = [
 ]
 
 [[package]]
+name = "creator-inbox"
+version = "0.1.0"
+dependencies = [
+ "borsh",
+ "mollusk-svm",
+ "mollusk-svm-programs-token",
+ "pinocchio",
+ "pinocchio-system",
+ "pinocchio-token",
+ "solana-account",
+ "solana-address 2.6.1",
+ "solana-instruction",
+ "solana-pubkey 4.2.0",
+ "solana-sdk-ids",
+]
+
+[[package]]
 name = "crunchy"
 version = "0.2.4"
 source = "registry+https://github.com/rust-lang/crates.io-index"
