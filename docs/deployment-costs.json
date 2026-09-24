@@ -1,0 +1,63 @@
+{
+  "queriedAtUtc": "2026-09-24T03:08:08.533949+00:00",
+  "rpc": "https://api.mainnet-beta.solana.com",
+  "loader": "Upgradeable loader v3",
+  "allocation": "ELF byte length + 45-byte ProgramData header; 36-byte Program account",
+  "coreProgramCount": 4,
+  "coreTotalLamports": 19273377760,
+  "withOptionalDbcLamports": 26890944440,
+  "programs": [
+    {
+      "name": "Collection CPMM",
+      "artifact": "raydium_cp_swap.so",
+      "bytes": 944496,
+      "sha256": "a572f6e5735395e6452eb9eed8e3503292734c17400e27b4cfc512e858c66850",
+      "programDataRentLamports": 4798918520,
+      "programAccountRentLamports": 833120,
+      "totalLamports": 4799751640
+    },
+    {
+      "name": "Collection CLMM",
+      "artifact": "raydium_clmm.so",
+      "bytes": 1805488,
+      "sha256": "e5e5e3d273c6b4c3875bee9fea3350a69bfa04a71a9cad9d5a940603b051308e",
+      "programDataRentLamports": 9172757880,
+      "programAccountRentLamports": 833120,
+      "totalLamports": 9173591000
+    },
+    {
+      "name": "Launch / graduation",
+      "artifact": "isotope_launch.so",
+      "bytes": 435536,
+      "sha256": "9b94d20b07755ed4e5cddb4a9ec3dc64ccb7ed93201da67298cef63d8316a30b",
+      "programDataRentLamports": 2213401720,
+      "programAccountRentLamports": 833120,
+      "totalLamports": 2214234840
+    },
+    {
+      "name": "Voting / treasury",
+      "artifact": "isotope_ve.so",
+      "bytes": 607104,
+      "sha256": "9fbedd9e8906e81dca517be70cec60e13752f66f8c41498bb96bc94753a587ff",
+      "programDataRentLamports": 3084967160,
+      "programAccountRentLamports": 833120,
+      "totalLamports": 3085800280
+    },
+    {
+      "name": "Optional DBC fork",
+      "artifact": "dynamic_bonding_curve.so",
+      "bytes": 1499184,
+      "sha256": "bb2dfe6c61f5f20657c1aaa370b82a875d5d2a73b457ff925cd36c4cfd18a64e",
+      "programDataRentLamports": 7616733560,
+      "programAccountRentLamports": 833120,
+      "totalLamports": 7617566680
+    }
+  ],
+  "excluded": [
+    "Transaction fees and retries",
+    "Configuration/token accounts",
+    "Pool and protocol-token liquidity",
+    "Unbuilt standalone collection-amm prototype",
+    "Unbuilt ray-gauges gauge/reactor/cp_lp_escrow programs"
+  ]
+}

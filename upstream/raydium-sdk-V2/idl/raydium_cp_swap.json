@@ -1,0 +1,3484 @@
+{
+ "address": "\\\"CPMMoo8L3F4NbTegBCKVNunggL7H1ZpdTHKxQB5qKP1C\\",
+ "metadata": {
+  "name": "raydium_cp_swap",
+  "version": "0.2.0",
+  "spec": "0.1.0",
+  "description": "Raydium constant product AMM, supports Token2022 and without Openbook"
+ },
+ "instructions": [
+  {
+   "name": "create_amm_config",
+   "docs": [
+    "# Arguments",
+    "",
+    "* `ctx`- The accounts needed by instruction.",
+    "* `index` - The index of amm config, there may be multiple config.",
+    "* `trade_fee_rate` - Trade fee rate, can be changed.",
+    "* `protocol_fee_rate` - The rate of protocol fee within trade fee.",
+    "* `fund_fee_rate` - The rate of fund fee within trade fee.",
+    ""
+   ],
+   "discriminator": [
+    137,
+    52,
+    237,
+    212,
+    215,
+    117,
+    108,
+    104
+   ],
+   "accounts": [
+    {
+     "name": "owner",
+     "docs": [
+      "Address to be set as protocol owner."
+     ],
+     "writable": true,
+     "signer": true
+    },
+    {
+     "name": "amm_config",
+     "docs": [
+      "Initialize config state account to store protocol owner address and fee rates."
+     ],
+     "writable": true
+    },
+    {
+     "name": "system_program"
+    }
+   ],
+   "args": [
+    {
+     "name": "index",
+     "type": "u16"
+    },
+    {
+     "name": "trade_fee_rate",
+     "type": "u64"
+    },
+    {
+     "name": "protocol_fee_rate",
+     "type": "u64"
+    },
+    {
+     "name": "fund_fee_rate",
+     "type": "u64"
+    },
+    {
+     "name": "create_pool_fee",
+     "type": "u64"
+    },
+    {
+     "name": "creator_fee_rate",
+     "type": "u64"
+    }
+   ]
+  },
+  {
+   "name": "update_amm_config",
+   "docs": [
+    "Updates the owner of the amm config",
+    "Must be called by the current owner or admin",
+    "",
+    "# Arguments",
+    "",
+    "* `ctx`- The context of accounts",
+    "* `trade_fee_rate`- The new trade fee rate of amm config, be set when `param` is 0",
+    "* `protocol_fee_rate`- The new protocol fee rate of amm config, be set when `param` is 1",
+    "* `fund_fee_rate`- The new fund fee rate of amm config, be set when `param` is 2",
+    "* `new_owner`- The config's new owner, be set when `param` is 3",
+    "* `new_fund_owner`- The config's new fund owner, be set when `param` is 4",
+    "* `param`- The value can be 0 | 1 | 2 | 3 | 4, otherwise will report a error",
+    ""
+   ],
+   "discriminator": [
+    49,
+    60,
+    174,
+    136,
+    154,
+    28,
+    116,
+    200
+   ],
+   "accounts": [
+    {
+     "name": "owner",
+     "docs": [
+      "The amm config owner or admin"
+     ],
+     "signer": true
+    },
+    {
+     "name": "amm_config",
+     "docs": [
+      "Amm config account to be changed"
+     ],
+     "writable": true
+    }
+   ],
+   "args": [
+    {
+     "name": "param",
+     "type": "u8"
+    },
+    {
+     "name": "value",
+     "type": "u64"
+    }
+   ]
+  },
+  {
+   "name": "update_pool_status",
+   "docs": [
+    "Update pool status for given value",
+    "",
+    "# Arguments",
+    "",
+    "* `ctx`- The context of accounts",
+    "* `status` - The value of status",
+    ""
+   ],
+   "discriminator": [
+    130,
+    87,
+    108,
+    6,
+    46,
+    224,
+    117,
+    123
+   ],
+   "accounts": [
+    {
+     "name": "authority",
+     "signer": true
+    },
+    {
+     "name": "pool_state",
+     "writable": true
+    }
+   ],
+   "args": [
+    {
+     "name": "status",
+     "type": "u8"
+    }
+   ]
+  },
+  {
+   "name": "collect_protocol_fee",
+   "docs": [
+    "Collect the protocol fee accrued to the pool",
+    "",
+    "# Arguments",
+    "",
+    "* `ctx` - The context of accounts",
+    "* `amount_0_requested` - The maximum amount of token_0 to send, can be 0 to collect fees in only token_1",
+    "* `amount_1_requested` - The maximum amount of token_1 to send, can be 0 to collect fees in only token_0",
+    ""
+   ],
+   "discriminator": [
+    136,
+    136,
+    252,
+    221,
+    194,
+    66,
+    126,
+    89
+   ],
+   "accounts": [
+    {
+     "name": "owner",
+     "docs": [
+      "Only admin or owner can collect fee now"
+     ],
+     "signer": true
+    },
+    {
+     "name": "authority"
+    },
+    {
+     "name": "pool_state",
+     "docs": [
+      "Pool state stores accumulated protocol fee amount"
+     ],
+     "writable": true
+    },
+    {
+     "name": "amm_config",
+     "docs": [
+      "Amm config account stores owner"
+     ]
+    },
+    {
+     "name": "token_0_vault",
+     "docs": [
+      "The address that holds pool tokens for token_0"
+     ],
+     "writable": true
+    },
+    {
+     "name": "token_1_vault",
+     "docs": [
+      "The address that holds pool tokens for token_1"
+     ],
+     "writable": true
+    },
+    {
+     "name": "vault_0_mint",
+     "docs": [
+      "The mint of token_0 vault"
+     ]
+    },
+    {
+     "name": "vault_1_mint",
+     "docs": [
+      "The mint of token_1 vault"
+     ]
+    },
+    {
+     "name": "recipient_token_0_account",
+     "docs": [
+      "The address that receives the collected token_0 protocol fees"
+     ],
+     "writable": true
+    },
+    {
+     "name": "recipient_token_1_account",
+     "docs": [
+      "The address that receives the collected token_1 protocol fees"
+     ],
+     "writable": true
+    },
+    {
+     "name": "token_program",
+     "docs": [
+      "The SPL program to perform token transfers"
+     ]
+    },
+    {
+     "name": "token_program_2022",
+     "docs": [
+      "The SPL program 2022 to perform token transfers"
+     ]
+    }
+   ],
+   "args": [
+    {
+     "name": "amount_0_requested",
+     "type": "u64"
+    },
+    {
+     "name": "amount_1_requested",
+     "type": "u64"
+    }
+   ]
+  },
+  {
+   "name": "collect_fund_fee",
+   "docs": [
+    "Collect the fund fee accrued to the pool",
+    "",
+    "# Arguments",
+    "",
+    "* `ctx` - The context of accounts",
+    "* `amount_0_requested` - The maximum amount of token_0 to send, can be 0 to collect fees in only token_1",
+    "* `amount_1_requested` - The maximum amount of token_1 to send, can be 0 to collect fees in only token_0",
+    ""
+   ],
+   "discriminator": [
+    167,
+    138,
+    78,
+    149,
+    223,
+    194,
+    6,
+    126
+   ],
+   "accounts": [
+    {
+     "name": "owner",
+     "docs": [
+      "Only admin or fund_owner can collect fee now"
+     ],
+     "signer": true
+    },
+    {
+     "name": "authority"
+    },
+    {
+     "name": "pool_state",
+     "docs": [
+      "Pool state stores accumulated protocol fee amount"
+     ],
+     "writable": true
+    },
+    {
+     "name": "amm_config",
+     "docs": [
+      "Amm config account stores fund_owner"
+     ]
+    },
+    {
+     "name": "token_0_vault",
+     "docs": [
+      "The address that holds pool tokens for token_0"
+     ],
+     "writable": true
+    },
+    {
+     "name": "token_1_vault",
+     "docs": [
+      "The address that holds pool tokens for token_1"
+     ],
+     "writable": true
+    },
+    {
+     "name": "vault_0_mint",
+     "docs": [
+      "The mint of token_0 vault"
+     ]
+    },
+    {
+     "name": "vault_1_mint",
+     "docs": [
+      "The mint of token_1 vault"
+     ]
+    },
+    {
+     "name": "recipient_token_0_account",
+     "docs": [
+      "The address that receives the collected token_0 fund fees"
+     ],
+     "writable": true
+    },
+    {
+     "name": "recipient_token_1_account",
+     "docs": [
+      "The address that receives the collected token_1 fund fees"
+     ],
+     "writable": true
+    },
+    {
+     "name": "token_program",
+     "docs": [
+      "The SPL program to perform token transfers"
+     ]
+    },
+    {
+     "name": "token_program_2022",
+     "docs": [
+      "The SPL program 2022 to perform token transfers"
+     ]
+    }
+   ],
+   "args": [
+    {
+     "name": "amount_0_requested",
+     "type": "u64"
+    },
+    {
+     "name": "amount_1_requested",
+     "type": "u64"
+    }
+   ]
+  },
+  {
+   "name": "collect_creator_fee",
+   "docs": [
+    "Collect the creator fee",
+    "",
+    "# Arguments",
+    "",
+    "* `ctx` - The context of accounts",
+    ""
+   ],
+   "discriminator": [
+    20,
+    22,
+    86,
+    123,
+    198,
+    28,
+    219,
+    132
+   ],
+   "accounts": [
+    {
+     "name": "creator",
+     "docs": [
+      "Only pool creator can collect fee"
+     ],
+     "writable": true,
+     "signer": true
+    },
+    {
+     "name": "authority"
+    },
+    {
+     "name": "pool_state",
+     "docs": [
+      "Pool state stores accumulated protocol fee amount"
+     ],
+     "writable": true
+    },
+    {
+     "name": "amm_config",
+     "docs": [
+      "Amm config account stores fund_owner"
+     ]
+    },
+    {
+     "name": "token_0_vault",
+     "docs": [
+      "The address that holds pool tokens for token_0"
+     ],
+     "writable": true
+    },
+    {
+     "name": "token_1_vault",
+     "docs": [
+      "The address that holds pool tokens for token_1"
+     ],
+     "writable": true
+    },
+    {
+     "name": "vault_0_mint",
+     "docs": [
+      "The mint of token_0 vault"
+     ]
+    },
+    {
+     "name": "vault_1_mint",
+     "docs": [
+      "The mint of token_1 vault"
+     ]
+    },
+    {
+     "name": "creator_token_0",
+     "docs": [
+      "The address that receives the collected token_0 fund fees"
+     ],
+     "writable": true
+    },
+    {
+     "name": "creator_token_1",
+     "docs": [
+      "The address that receives the collected token_1 fund fees"
+     ],
+     "writable": true
+    },
+    {
+     "name": "token_0_program",
+     "docs": [
+      "Spl token program or token program 2022"
+     ]
+    },
+    {
+     "name": "token_1_program",
+     "docs": [
+      "Spl token program or token program 2022"
+     ]
+    },
+    {
+     "name": "associated_token_program",
+     "docs": [
+      "Program to create an ATA for receiving position NFT"
+     ]
+    },
+    {
+     "name": "system_program",
+     "docs": [
+      "To create a new program account"
+     ]
+    }
+   ],
+   "args": []
+  },
+  {
+   "name": "collect_creator_fee_permissionless",
+   "docs": [
+    "Collect the creator fee, anyone can call it since the fee is always sent to the",
+    "pool creator, the payer only funds the creation of the creator's token accounts.",
+    "",
+    "# Arguments",
+    "",
+    "* `ctx` - The context of accounts",
+    ""
+   ],
+   "discriminator": [
+    202,
+    202,
+    34,
+    83,
+    226,
+    122,
+    145,
+    229
+   ],
+   "accounts": [
+    {
+     "name": "payer",
+     "docs": [
+      "Anyone can trigger the collection since the fee is always sent to the pool creator,",
+      "the payer only funds the creation of the creator's token accounts if they don't exist yet."
+     ],
+     "writable": true,
+     "signer": true
+    },
+    {
+     "name": "creator",
+     "docs": [
+      "The pool creator that receives the collected creator fees"
+     ]
+    },
+    {
+     "name": "authority"
+    },
+    {
+     "name": "pool_state",
+     "docs": [
+      "Pool state stores accumulated creator fee amount"
+     ],
+     "writable": true
+    },
+    {
+     "name": "token_0_vault",
+     "docs": [
+      "The address that holds pool tokens for token_0"
+     ],
+     "writable": true
+    },
+    {
+     "name": "token_1_vault",
+     "docs": [
+      "The address that holds pool tokens for token_1"
+     ],
+     "writable": true
+    },
+    {
+     "name": "vault_0_mint",
+     "docs": [
+      "The mint of token_0 vault"
+     ]
+    },
+    {
+     "name": "vault_1_mint",
+     "docs": [
+      "The mint of token_1 vault"
+     ]
+    },
+    {
+     "name": "creator_token_0",
+     "docs": [
+      "The address that receives the collected token_0 creator fees"
+     ],
+     "writable": true
+    },
+    {
+     "name": "creator_token_1",
+     "docs": [
+      "The address that receives the collected token_1 creator fees"
+     ],
+     "writable": true
+    },
+    {
+     "name": "token_0_program",
+     "docs": [
+      "Spl token program or token program 2022"
+     ]
+    },
+    {
+     "name": "token_1_program",
+     "docs": [
+      "Spl token program or token program 2022"
+     ]
+    },
+    {
+     "name": "associated_token_program",
+     "docs": [
+      "Program to create an ATA for receiving the creator fee"
+     ]
+    },
+    {
+     "name": "system_program",
+     "docs": [
+      "To create a new program account"
+     ]
+    }
+   ],
+   "args": []
+  },
+  {
+   "name": "create_permission_pda",
+   "docs": [
+    "Create a permission account",
+    "",
+    "# Arguments",
+    "",
+    "* `ctx`- The context of accounts",
+    ""
+   ],
+   "discriminator": [
+    135,
+    136,
+    2,
+    216,
+    137,
+    169,
+    181,
+    202
+   ],
+   "accounts": [
+    {
+     "name": "owner",
+     "writable": true,
+     "signer": true
+    },
+    {
+     "name": "permission_authority"
+    },
+    {
+     "name": "permission",
+     "docs": [
+      "Initialize config state account to store protocol owner address and fee rates."
+     ],
+     "writable": true
+    },
+    {
+     "name": "system_program"
+    }
+   ],
+   "args": []
+  },
+  {
+   "name": "close_permission_pda",
+   "docs": [
+    "Close a permission account",
+    "",
+    "# Arguments",
+    "",
+    "* `ctx`- The context of accounts",
+    ""
+   ],
+   "discriminator": [
+    156,
+    84,
+    32,
+    118,
+    69,
+    135,
+    70,
+    123
+   ],
+   "accounts": [
+    {
+     "name": "owner",
+     "writable": true,
+     "signer": true
+    },
+    {
+     "name": "permission_authority"
+    },
+    {
+     "name": "permission",
+     "docs": [
+      "Initialize config state account to store protocol owner address and fee rates."
+     ],
+     "writable": true
+    },
+    {
+     "name": "system_program"
+    }
+   ],
+   "args": []
+  },
+  {
+   "name": "initialize",
+   "docs": [
+    "Creates a pool for the given token pair and the initial price",
+    "",
+    "# Arguments",
+    "",
+    "* `ctx`- The context of accounts",
+    "* `init_amount_0` - the initial amount_0 to deposit",
+    "* `init_amount_1` - the initial amount_1 to deposit",
+    "* `open_time` - the timestamp allowed for swap",
+    ""
+   ],
+   "discriminator": [
+    175,
+    175,
+    109,
+    31,
+    13,
+    152,
+    155,
+    237
+   ],
+   "accounts": [
+    {
+     "name": "creator",
+     "docs": [
+      "Address paying to create the pool. Can be anyone"
+     ],
+     "writable": true,
+     "signer": true
+    },
+    {
+     "name": "amm_config",
+     "docs": [
+      "Which config the pool belongs to."
+     ]
+    },
+    {
+     "name": "authority",
+     "docs": [
+      "pool vault and lp mint authority"
+     ]
+    },
+    {
+     "name": "pool_state",
+     "docs": [
+      "PDA account:",
+      "seeds = [",
+      "POOL_SEED.as_bytes(),",
+      "amm_config.key().as_ref(),",
+      "token_0_mint.key().as_ref(),",
+      "token_1_mint.key().as_ref(),",
+      "],",
+      "",
+      "Or random account: must be signed by cli"
+     ],
+     "writable": true
+    },
+    {
+     "name": "token_0_mint",
+     "docs": [
+      "Token_0 mint, the key must smaller than token_1 mint."
+     ]
+    },
+    {
+     "name": "token_1_mint",
+     "docs": [
+      "Token_1 mint, the key must grater then token_0 mint."
+     ]
+    },
+    {
+     "name": "lp_mint",
+     "docs": [
+      "pool lp mint"
+     ],
+     "writable": true
+    },
+    {
+     "name": "creator_token_0",
+     "docs": [
+      "payer token0 account"
+     ],
+     "writable": true
+    },
+    {
+     "name": "creator_token_1",
+     "docs": [
+      "creator token1 account"
+     ],
+     "writable": true
+    },
+    {
+     "name": "creator_lp_token",
+     "docs": [
+      "creator lp token account"
+     ],
+     "writable": true
+    },
+    {
+     "name": "token_0_vault",
+     "writable": true
+    },
+    {
+     "name": "token_1_vault",
+     "writable": true
+    },
+    {
+     "name": "create_pool_fee",
+     "docs": [
+      "create pool fee account"
+     ],
+     "writable": true
+    },
+    {
+     "name": "observation_state",
+     "docs": [
+      "an account to store oracle observations"
+     ],
+     "writable": true
+    },
+    {
+     "name": "token_program",
+     "docs": [
+      "Program to create mint account and mint tokens"
+     ]
+    },
+    {
+     "name": "token_0_program",
+     "docs": [
+      "Spl token program or token program 2022"
+     ]
+    },
+    {
+     "name": "token_1_program",
+     "docs": [
+      "Spl token program or token program 2022"
+     ]
+    },
+    {
+     "name": "associated_token_program",
+     "docs": [
+      "Program to create an ATA for receiving position NFT"
+     ]
+    },
+    {
+     "name": "system_program",
+     "docs": [
+      "To create a new program account"
+     ]
+    },
+    {
+     "name": "rent",
+     "docs": [
+      "Sysvar for program account"
+     ]
+    }
+   ],
+   "args": [
+    {
+     "name": "init_amount_0",
+     "type": "u64"
+    },
+    {
+     "name": "init_amount_1",
+     "type": "u64"
+    },
+    {
+     "name": "open_time",
+     "type": "u64"
+    }
+   ]
+  },
+  {
+   "name": "initialize_with_permission",
+   "docs": [
+    "Create a pool with permission",
+    "",
+    "# Arguments",
+    "",
+    "* `ctx`- The context of accounts",
+    "* `init_amount_0` - the initial amount_0 to deposit",
+    "* `init_amount_1` - the initial amount_1 to deposit",
+    "* `open_time` - the timestamp allowed for swap",
+    "* `creator_fee_on` - creator fee model, 0\uff1aboth token0 and token1 (depends on the input), 1: only token0, 2: only token1",
+    ""
+   ],
+   "discriminator": [
+    63,
+    55,
+    254,
+    65,
+    49,
+    178,
+    89,
+    121
+   ],
+   "accounts": [
+    {
+     "name": "payer",
+     "docs": [
+      "Address paying to create the pool. Can be anyone"
+     ],
+     "writable": true,
+     "signer": true
+    },
+    {
+     "name": "creator"
+    },
+    {
+     "name": "amm_config",
+     "docs": [
+      "Which config the pool belongs to."
+     ]
+    },
+    {
+     "name": "authority",
+     "docs": [
+      "pool vault and lp mint authority"
+     ]
+    },
+    {
+     "name": "pool_state",
+     "docs": [
+      "PDA account:",
+      "seeds = [",
+      "POOL_SEED.as_bytes(),",
+      "amm_config.key().as_ref(),",
+      "token_0_mint.key().as_ref(),",
+      "token_1_mint.key().as_ref(),",
+      "],",
+      "",
+      "Or random account: must be signed by cli"
+     ],
+     "writable": true
+    },
+    {
+     "name": "token_0_mint",
+     "docs": [
+      "Token_0 mint, the key must smaller than token_1 mint."
+     ]
+    },
+    {
+     "name": "token_1_mint",
+     "docs": [
+      "Token_1 mint, the key must grater then token_0 mint."
+     ]
+    },
+    {
+     "name": "lp_mint",
+     "docs": [
+      "pool lp mint"
+     ],
+     "writable": true
+    },
+    {
+     "name": "payer_token_0",
+     "docs": [
+      "payer token0 account"
+     ],
+     "writable": true
+    },
+    {
+     "name": "payer_token_1",
+     "docs": [
+      "payer token1 account"
+     ],
+     "writable": true
+    },
+    {
+     "name": "payer_lp_token",
+     "docs": [
+      "payer lp token account"
+     ],
+     "writable": true
+    },
+    {
+     "name": "token_0_vault",
+     "writable": true
+    },
+    {
+     "name": "token_1_vault",
+     "writable": true
+    },
+    {
+     "name": "create_pool_fee",
+     "docs": [
+      "create pool fee account"
+     ],
+     "writable": true
+    },
+    {
+     "name": "observation_state",
+     "docs": [
+      "an account to store oracle observations"
+     ],
+     "writable": true
+    },
+    {
+     "name": "permission"
+    },
+    {
+     "name": "token_program",
+     "docs": [
+      "Program to create mint account and mint tokens"
+     ]
+    },
+    {
+     "name": "token_0_program",
+     "docs": [
+      "Spl token program or token program 2022"
+     ]
+    },
+    {
+     "name": "token_1_program",
+     "docs": [
+      "Spl token program or token program 2022"
+     ]
+    },
+    {
+     "name": "associated_token_program",
+     "docs": [
+      "Program to create an ATA for receiving position NFT"
+     ]
+    },
+    {
+     "name": "system_program",
+     "docs": [
+      "To create a new program account"
+     ]
+    }
+   ],
+   "args": [
+    {
+     "name": "init_amount_0",
+     "type": "u64"
+    },
+    {
+     "name": "init_amount_1",
+     "type": "u64"
+    },
+    {
+     "name": "open_time",
+     "type": "u64"
+    },
+    {
+     "name": "creator_fee_on",
+     "type": {
+      "defined": {
+       "name": "raydium_cp_swap::states::pool::CreatorFeeOn"
+      }
+     }
+    }
+   ]
+  },
+  {
+   "name": "deposit",
+   "docs": [
+    "Deposit lp token to the pool",
+    "",
+    "# Arguments",
+    "",
+    "* `ctx`- The context of accounts",
+    "* `lp_token_amount` - Increased number of LPs",
+    "* `maximum_token_0_amount` -  Maximum token 0 amount to deposit, prevents excessive slippage",
+    "* `maximum_token_1_amount` - Maximum token 1 amount to deposit, prevents excessive slippage",
+    ""
+   ],
+   "discriminator": [
+    242,
+    35,
+    198,
+    137,
+    82,
+    225,
+    242,
+    182
+   ],
+   "accounts": [
+    {
+     "name": "owner",
+     "docs": [
+      "Pays to mint the position"
+     ],
+     "signer": true
+    },
+    {
+     "name": "authority"
+    },
+    {
+     "name": "pool_state",
+     "writable": true
+    },
+    {
+     "name": "owner_lp_token",
+     "docs": [
+      "Owner lp token account"
+     ],
+     "writable": true
+    },
+    {
+     "name": "token_0_account",
+     "docs": [
+      "The payer's token account for token_0"
+     ],
+     "writable": true
+    },
+    {
+     "name": "token_1_account",
+     "docs": [
+      "The payer's token account for token_1"
+     ],
+     "writable": true
+    },
+    {
+     "name": "token_0_vault",
+     "docs": [
+      "The address that holds pool tokens for token_0"
+     ],
+     "writable": true
+    },
+    {
+     "name": "token_1_vault",
+     "docs": [
+      "The address that holds pool tokens for token_1"
+     ],
+     "writable": true
+    },
+    {
+     "name": "token_program",
+     "docs": [
+      "token Program"
+     ]
+    },
+    {
+     "name": "token_program_2022",
+     "docs": [
+      "Token program 2022"
+     ]
+    },
+    {
+     "name": "vault_0_mint",
+     "docs": [
+      "The mint of token_0 vault"
+     ]
+    },
+    {
+     "name": "vault_1_mint",
+     "docs": [
+      "The mint of token_1 vault"
+     ]
+    },
+    {
+     "name": "lp_mint",
+     "docs": [
+      "Lp token mint"
+     ],
+     "writable": true
+    }
+   ],
+   "args": [
+    {
+     "name": "lp_token_amount",
+     "type": "u64"
+    },
+    {
+     "name": "maximum_token_0_amount",
+     "type": "u64"
+    },
+    {
+     "name": "maximum_token_1_amount",
+     "type": "u64"
+    }
+   ]
+  },
+  {
+   "name": "withdraw",
+   "docs": [
+    "Withdraw lp for token0 and token1",
+    "",
+    "# Arguments",
+    "",
+    "* `ctx`- The context of accounts",
+    "* `lp_token_amount` - Amount of pool tokens to burn. User receives an output of token a and b based on the percentage of the pool tokens that are returned.",
+    "* `minimum_token_0_amount` -  Minimum amount of token 0 to receive, prevents excessive slippage",
+    "* `minimum_token_1_amount` -  Minimum amount of token 1 to receive, prevents excessive slippage",
+    ""
+   ],
+   "discriminator": [
+    183,
+    18,
+    70,
+    156,
+    148,
+    109,
+    161,
+    34
+   ],
+   "accounts": [
+    {
+     "name": "owner",
+     "docs": [
+      "Pays to mint the position"
+     ],
+     "signer": true
+    },
+    {
+     "name": "authority"
+    },
+    {
+     "name": "pool_state",
+     "docs": [
+      "Pool state account"
+     ],
+     "writable": true
+    },
+    {
+     "name": "owner_lp_token",
+     "docs": [
+      "Owner lp token account"
+     ],
+     "writable": true
+    },
+    {
+     "name": "token_0_account",
+     "docs": [
+      "The token account for receive token_0,"
+     ],
+     "writable": true
+    },
+    {
+     "name": "token_1_account",
+     "docs": [
+      "The token account for receive token_1"
+     ],
+     "writable": true
+    },
+    {
+     "name": "token_0_vault",
+     "docs": [
+      "The address that holds pool tokens for token_0"
+     ],
+     "writable": true
+    },
+    {
+     "name": "token_1_vault",
+     "docs": [
+      "The address that holds pool tokens for token_1"
+     ],
+     "writable": true
+    },
+    {
+     "name": "token_program",
+     "docs": [
+      "token Program"
+     ]
+    },
+    {
+     "name": "token_program_2022",
+     "docs": [
+      "Token program 2022"
+     ]
+    },
+    {
+     "name": "vault_0_mint",
+     "docs": [
+      "The mint of token_0 vault"
+     ]
+    },
+    {
+     "name": "vault_1_mint",
+     "docs": [
+      "The mint of token_1 vault"
+     ]
+    },
+    {
+     "name": "lp_mint",
+     "docs": [
+      "Pool lp token mint"
+     ],
+     "writable": true
+    },
+    {
+     "name": "memo_program",
+     "docs": [
+      "memo program"
+     ]
+    }
+   ],
+   "args": [
+    {
+     "name": "lp_token_amount",
+     "type": "u64"
+    },
+    {
+     "name": "minimum_token_0_amount",
+     "type": "u64"
+    },
+    {
+     "name": "minimum_token_1_amount",
+     "type": "u64"
+    }
+   ]
+  },
+  {
+   "name": "swap_base_input",
+   "docs": [
+    "Swap the tokens in the pool base input amount",
+    "",
+    "# Arguments",
+    "",
+    "* `ctx`- The context of accounts",
+    "* `amount_in` -  input amount to transfer, output to DESTINATION is based on the exchange rate",
+    "* `minimum_amount_out` -  Minimum amount of output token, prevents excessive slippage",
+    ""
+   ],
+   "discriminator": [
+    143,
+    190,
+    90,
+    218,
+    196,
+    30,
+    51,
+    222
+   ],
+   "accounts": [
+    {
+     "name": "payer",
+     "docs": [
+      "The user performing the swap"
+     ],
+     "signer": true
+    },
+    {
+     "name": "authority"
+    },
+    {
+     "name": "amm_config",
+     "docs": [
+      "The factory state to read protocol fees"
+     ]
+    },
+    {
+     "name": "pool_state",
+     "docs": [
+      "The program account of the pool in which the swap will be performed"
+     ],
+     "writable": true
+    },
+    {
+     "name": "input_token_account",
+     "docs": [
+      "The user token account for input token"
+     ],
+     "writable": true
+    },
+    {
+     "name": "output_token_account",
+     "docs": [
+      "The user token account for output token"
+     ],
+     "writable": true
+    },
+    {
+     "name": "input_vault",
+     "docs": [
+      "The vault token account for input token"
+     ],
+     "writable": true
+    },
+    {
+     "name": "output_vault",
+     "docs": [
+      "The vault token account for output token"
+     ],
+     "writable": true
+    },
+    {
+     "name": "input_token_program",
+     "docs": [
+      "SPL program for input token transfers"
+     ]
+    },
+    {
+     "name": "output_token_program",
+     "docs": [
+      "SPL program for output token transfers"
+     ]
+    },
+    {
+     "name": "input_token_mint",
+     "docs": [
+      "The mint of input token"
+     ]
+    },
+    {
+     "name": "output_token_mint",
+     "docs": [
+      "The mint of output token"
+     ]
+    },
+    {
+     "name": "observation_state",
+     "docs": [
+      "The program account for the most recent oracle observation"
+     ],
+     "writable": true
+    }
+   ],
+   "args": [
+    {
+     "name": "amount_in",
+     "type": "u64"
+    },
+    {
+     "name": "minimum_amount_out",
+     "type": "u64"
+    }
+   ]
+  },
+  {
+   "name": "swap_base_output",
+   "docs": [
+    "Swap the tokens in the pool base output amount",
+    "",
+    "# Arguments",
+    "",
+    "* `ctx`- The context of accounts",
+    "* `max_amount_in` -  input amount prevents excessive slippage",
+    "* `amount_out` -  amount of output token",
+    ""
+   ],
+   "discriminator": [
+    55,
+    217,
+    98,
+    86,
+    163,
+    74,
+    180,
+    173
+   ],
+   "accounts": [
+    {
+     "name": "payer",
+     "docs": [
+      "The user performing the swap"
+     ],
+     "signer": true
+    },
+    {
+     "name": "authority"
+    },
+    {
+     "name": "amm_config",
+     "docs": [
+      "The factory state to read protocol fees"
+     ]
+    },
+    {
+     "name": "pool_state",
+     "docs": [
+      "The program account of the pool in which the swap will be performed"
+     ],
+     "writable": true
+    },
+    {
+     "name": "input_token_account",
+     "docs": [
+      "The user token account for input token"
+     ],
+     "writable": true
+    },
+    {
+     "name": "output_token_account",
+     "docs": [
+      "The user token account for output token"
+     ],
+     "writable": true
+    },
+    {
+     "name": "input_vault",
+     "docs": [
+      "The vault token account for input token"
+     ],
+     "writable": true
+    },
+    {
+     "name": "output_vault",
+     "docs": [
+      "The vault token account for output token"
+     ],
+     "writable": true
+    },
+    {
+     "name": "input_token_program",
+     "docs": [
+      "SPL program for input token transfers"
+     ]
+    },
+    {
+     "name": "output_token_program",
+     "docs": [
+      "SPL program for output token transfers"
+     ]
+    },
+    {
+     "name": "input_token_mint",
+     "docs": [
+      "The mint of input token"
+     ]
+    },
+    {
+     "name": "output_token_mint",
+     "docs": [
+      "The mint of output token"
+     ]
+    },
+    {
+     "name": "observation_state",
+     "docs": [
+      "The program account for the most recent oracle observation"
+     ],
+     "writable": true
+    }
+   ],
+   "args": [
+    {
+     "name": "max_amount_in",
+     "type": "u64"
+    },
+    {
+     "name": "amount_out",
+     "type": "u64"
+    }
+   ]
+  },
+  {
+   "name": "create_ruleset",
+   "docs": [
+    "Token collections",
+    "",
+    "A ruleset is an admin-defined admission rule (e.g. \"standard non-mayhem pump.fun launch\").",
+    "Anyone may create a collection that points at a ruleset, and anyone may register a mint",
+    "into a collection by supplying the accounts that prove the rule holds. Pools whose two mints",
+    "are members of one collection gain a discounted `rebalance_swap_base_input` path.",
+    "Create an admission ruleset. Admin only.",
+    "",
+    "* `index` - ruleset seed",
+    "* `kind` - `RuleKind` (0 any, 1 pump.fun launch, 2 immutable mint, 3 stake-pool LST)",
+    "* `flags` - kind-specific flags (pump.fun: 1 allow mayhem, 2 require complete)",
+    "* `program_id` - program whose accounts prove the rule (pump.fun program for kind 1)"
+   ],
+   "discriminator": [
+    123,
+    244,
+    242,
+    133,
+    232,
+    203,
+    73,
+    198
+   ],
+   "accounts": [
+    {
+     "name": "owner",
+     "docs": [
+      "Rulesets are admin-defined"
+     ],
+     "writable": true,
+     "signer": true
+    },
+    {
+     "name": "ruleset",
+     "writable": true
+    },
+    {
+     "name": "system_program"
+    }
+   ],
+   "args": [
+    {
+     "name": "index",
+     "type": "u16"
+    },
+    {
+     "name": "kind",
+     "type": "u8"
+    },
+    {
+     "name": "flags",
+     "type": "u8"
+    },
+    {
+     "name": "program_id",
+     "type": "pubkey"
+    }
+   ]
+  },
+  {
+   "name": "update_ruleset",
+   "docs": [
+    "Update an admission ruleset. Admin only."
+   ],
+   "discriminator": [
+    163,
+    247,
+    48,
+    173,
+    18,
+    174,
+    20,
+    154
+   ],
+   "accounts": [
+    {
+     "name": "owner",
+     "signer": true
+    },
+    {
+     "name": "ruleset",
+     "writable": true
+    }
+   ],
+   "args": [
+    {
+     "name": "kind",
+     "type": "u8"
+    },
+    {
+     "name": "flags",
+     "type": "u8"
+    },
+    {
+     "name": "program_id",
+     "type": "pubkey"
+    }
+   ]
+  },
+  {
+   "name": "create_token_collection",
+   "docs": [
+    "Create a token collection bound to a ruleset. Permissionless.",
+    "",
+    "* `index` - collection seed, scoped by the creator",
+    "* `rebalance_fee_divisor` - rebalance swaps pay `trade_fee_rate / divisor`"
+   ],
+   "discriminator": [
+    220,
+    140,
+    46,
+    36,
+    208,
+    163,
+    6,
+    3
+   ],
+   "accounts": [
+    {
+     "name": "authority",
+     "docs": [
+      "Anyone may create a collection"
+     ],
+     "writable": true,
+     "signer": true
+    },
+    {
+     "name": "ruleset",
+     "docs": [
+      "Admin-defined ruleset members must satisfy"
+     ]
+    },
+    {
+     "name": "quote_mint",
+     "docs": [
+      "Collection numeraire; admitted without a rule check"
+     ]
+    },
+    {
+     "name": "collection",
+     "writable": true
+    },
+    {
+     "name": "system_program"
+    }
+   ],
+   "args": [
+    {
+     "name": "index",
+     "type": "u16"
+    },
+    {
+     "name": "rebalance_fee_divisor",
+     "type": "u32"
+    }
+   ]
+  },
+  {
+   "name": "update_token_collection",
+   "docs": [
+    "Update a token collection. Collection authority only.",
+    "",
+    "* `param` - 0 rebalance_fee_divisor, 1 new authority (first remaining account)"
+   ],
+   "discriminator": [
+    143,
+    109,
+    74,
+    159,
+    45,
+    144,
+    212,
+    130
+   ],
+   "accounts": [
+    {
+     "name": "authority",
+     "signer": true
+    },
+    {
+     "name": "collection",
+     "writable": true
+    }
+   ],
+   "args": [
+    {
+     "name": "param",
+     "type": "u8"
+    },
+    {
+     "name": "value",
+     "type": "u64"
+    }
+   ]
+  },
+  {
+   "name": "register_collection_member",
+   "docs": [
+    "Register a mint into a collection after checking the ruleset against the supplied proof",
+    "accounts (remaining accounts). Permissionless."
+   ],
+   "discriminator": [
+    189,
+    156,
+    113,
+    17,
+    73,
+    63,
+    122,
+    111
+   ],
+   "accounts": [
+    {
+     "name": "payer",
+     "docs": [
+      "Anyone may register a mint that satisfies the ruleset"
+     ],
+     "writable": true,
+     "signer": true
+    },
+    {
+     "name": "collection",
+     "writable": true
+    },
+    {
+     "name": "ruleset"
+    },
+    {
+     "name": "mint"
+    },
+    {
+     "name": "member",
+     "writable": true
+    },
+    {
+     "name": "system_program"
+    }
+   ],
+   "args": []
+  },
+  {
+   "name": "set_collection_member_rate",
+   "docs": [
+    "Set a member's value in the collection numeraire (1e9 == 1.0). Collection authority only."
+   ],
+   "discriminator": [
+    242,
+    103,
+    47,
+    43,
+    47,
+    18,
+    165,
+    89
+   ],
+   "accounts": [
+    {
+     "name": "authority",
+     "signer": true
+    },
+    {
+     "name": "collection"
+    },
+    {
+     "name": "member",
+     "writable": true
+    }
+   ],
+   "args": [
+    {
+     "name": "rate",
+     "type": "u64"
+    }
+   ]
+  },
+  {
+   "name": "sync_member_rate",
+   "docs": [
+    "Re-read an LST member's rate from its stake pool (`Lst` rulesets). Permissionless."
+   ],
+   "discriminator": [
+    6,
+    238,
+    69,
+    134,
+    112,
+    107,
+    139,
+    134
+   ],
+   "accounts": [
+    {
+     "name": "collection"
+    },
+    {
+     "name": "ruleset"
+    },
+    {
+     "name": "member",
+     "writable": true
+    },
+    {
+     "name": "stake_pool"
+    }
+   ],
+   "args": []
+  },
+  {
+   "name": "rebalance_swap_base_input",
+   "docs": [
+    "Swap base input at `trade_fee_rate / collection.rebalance_fee_divisor`. Both pool mints must be",
+    "members of `collection`, and the swap must strictly reduce the pool's rate-weighted imbalance.",
+    "",
+    "* `amount_in` - input amount to transfer",
+    "* `minimum_amount_out` - minimum output, prevents excessive slippage"
+   ],
+   "discriminator": [
+    225,
+    152,
+    65,
+    52,
+    41,
+    220,
+    94,
+    58
+   ],
+   "accounts": [
+    {
+     "name": "swap",
+     "accounts": [
+      {
+       "name": "payer",
+       "docs": [
+        "The user performing the swap"
+       ],
+       "signer": true
+      },
+      {
+       "name": "authority"
+      },
+      {
+       "name": "amm_config",
+       "docs": [
+        "The factory state to read protocol fees"
+       ]
+      },
+      {
+       "name": "pool_state",
+       "docs": [
+        "The program account of the pool in which the swap will be performed"
+       ],
+       "writable": true
+      },
+      {
+       "name": "input_token_account",
+       "docs": [
+        "The user token account for input token"
+       ],
+       "writable": true
+      },
+      {
+       "name": "output_token_account",
+       "docs": [
+        "The user token account for output token"
+       ],
+       "writable": true
+      },
+      {
+       "name": "input_vault",
+       "docs": [
+        "The vault token account for input token"
+       ],
+       "writable": true
+      },
+      {
+       "name": "output_vault",
+       "docs": [
+        "The vault token account for output token"
+       ],
+       "writable": true
+      },
+      {
+       "name": "input_token_program",
+       "docs": [
+        "SPL program for input token transfers"
+       ]
+      },
+      {
+       "name": "output_token_program",
+       "docs": [
+        "SPL program for output token transfers"
+       ]
+      },
+      {
+       "name": "input_token_mint",
+       "docs": [
+        "The mint of input token"
+       ]
+      },
+      {
+       "name": "output_token_mint",
+       "docs": [
+        "The mint of output token"
+       ]
+      },
+      {
+       "name": "observation_state",
+       "docs": [
+        "The program account for the most recent oracle observation"
+       ],
+       "writable": true
+      }
+     ]
+    },
+    {
+     "name": "collection"
+    },
+    {
+     "name": "input_member"
+    },
+    {
+     "name": "output_member"
+    }
+   ],
+   "args": [
+    {
+     "name": "amount_in",
+     "type": "u64"
+    },
+    {
+     "name": "minimum_amount_out",
+     "type": "u64"
+    }
+   ]
+  },
+  {
+   "name": "init_pool_members",
+   "docs": [
+    "Collection pools",
+    "",
+    "A pair that contains a collection's quote mint can bind to that collection. Other members of",
+    "the collection get their own vaults under the pool, and any two members (the pair's base token",
+    "included) swap directly against each other inside the pool: `intra_swap`, priced by a",
+    "StableSwap over the members' rate-normalised reserves, so the price is the collection rate at",
+    "balance and bends as the pool skews. Fee is `trade_fee_rate / rebalance_fee_divisor`.",
+    "The pair's own curve against the quote is unchanged (extra swaps).",
+    "Bind a pair to a collection. Pool creator or admin. `amp` is the StableSwap amplification."
+   ],
+   "discriminator": [
+    200,
+    250,
+    247,
+    64,
+    69,
+    215,
+    172,
+    190
+   ],
+   "accounts": [
+    {
+     "name": "payer",
+     "docs": [
+      "Pool creator or admin"
+     ],
+     "writable": true,
+     "signer": true
+    },
+    {
+     "name": "pool_state"
+    },
+    {
+     "name": "collection"
+    },
+    {
+     "name": "base_member",
+     "docs": [
+      "The base token must already be a member of the collection"
+     ]
+    },
+    {
+     "name": "pool_members",
+     "writable": true
+    },
+    {
+     "name": "system_program"
+    }
+   ],
+   "args": [
+    {
+     "name": "amp",
+     "type": "u64"
+    }
+   ]
+  },
+  {
+   "name": "add_pool_member",
+   "docs": [
+    "Add a collection member to the pool (creates its vault). Permissionless."
+   ],
+   "discriminator": [
+    146,
+    14,
+    31,
+    156,
+    101,
+    69,
+    133,
+    52
+   ],
+   "accounts": [
+    {
+     "name": "payer",
+     "writable": true,
+     "signer": true
+    },
+    {
+     "name": "authority"
+    },
+    {
+     "name": "pool_state"
+    },
+    {
+     "name": "pool_members",
+     "writable": true
+    },
+    {
+     "name": "collection_member"
+    },
+    {
+     "name": "mint"
+    },
+    {
+     "name": "member_vault",
+     "writable": true
+    },
+    {
+     "name": "token_program"
+    },
+    {
+     "name": "system_program"
+    },
+    {
+     "name": "rent"
+    }
+   ],
+   "args": []
+  },
+  {
+   "name": "intra_swap",
+   "docs": [
+    "Swap member `from_index` for member `to_index` inside the pool.",
+    "Remaining accounts: for every member k, `[member vault k, CollectionMember k]`."
+   ],
+   "discriminator": [
+    121,
+    230,
+    156,
+    108,
+    237,
+    159,
+    76,
+    99
+   ],
+   "accounts": [
+    {
+     "name": "payer",
+     "signer": true
+    },
+    {
+     "name": "authority"
+    },
+    {
+     "name": "amm_config"
+    },
+    {
+     "name": "pool_state",
+     "writable": true
+    },
+    {
+     "name": "pool_members",
+     "writable": true
+    },
+    {
+     "name": "collection"
+    },
+    {
+     "name": "input_token_account",
+     "writable": true
+    },
+    {
+     "name": "output_token_account",
+     "writable": true
+    },
+    {
+     "name": "input_vault",
+     "writable": true
+    },
+    {
+     "name": "output_vault",
+     "writable": true
+    },
+    {
+     "name": "input_token_program"
+    },
+    {
+     "name": "output_token_program"
+    },
+    {
+     "name": "input_token_mint"
+    },
+    {
+     "name": "output_token_mint"
+    }
+   ],
+   "args": [
+    {
+     "name": "from_index",
+     "type": "u8"
+    },
+    {
+     "name": "to_index",
+     "type": "u8"
+    },
+    {
+     "name": "amount_in",
+     "type": "u64"
+    },
+    {
+     "name": "minimum_amount_out",
+     "type": "u64"
+    }
+   ]
+  },
+  {
+   "name": "collect_member_fees",
+   "docs": [
+    "Collect protocol (kind 0) or fund (kind 1) fees from a non-base member vault."
+   ],
+   "discriminator": [
+    158,
+    164,
+    140,
+    125,
+    67,
+    248,
+    105,
+    209
+   ],
+   "accounts": [
+    {
+     "name": "owner",
+     "signer": true
+    },
+    {
+     "name": "authority"
+    },
+    {
+     "name": "amm_config"
+    },
+    {
+     "name": "pool_state"
+    },
+    {
+     "name": "pool_members",
+     "writable": true
+    },
+    {
+     "name": "member_vault",
+     "writable": true
+    },
+    {
+     "name": "recipient_token_account",
+     "writable": true
+    },
+    {
+     "name": "vault_mint"
+    },
+    {
+     "name": "token_program"
+    }
+   ],
+   "args": [
+    {
+     "name": "member_index",
+     "type": "u8"
+    },
+    {
+     "name": "kind",
+     "type": "u8"
+    }
+   ]
+  },
+  {
+   "name": "create_support_mint_associated",
+   "docs": [
+    "Create support token22 mint account which can create pool and send rewards while ignoring unsupported extensions."
+   ],
+   "discriminator": [
+    17,
+    251,
+    65,
+    92,
+    136,
+    242,
+    14,
+    169
+   ],
+   "accounts": [
+    {
+     "name": "owner",
+     "docs": [
+      "Address to be set as protocol owner."
+     ],
+     "writable": true,
+     "signer": true
+    },
+    {
+     "name": "token_mint",
+     "docs": [
+      "Support token mint"
+     ]
+    },
+    {
+     "name": "support_mint_associated",
+     "docs": [
+      "Initialize support mint state account to store support mint address and bump."
+     ],
+     "writable": true
+    },
+    {
+     "name": "system_program"
+    }
+   ],
+   "args": []
+  },
+  {
+   "name": "close_support_mint_associated",
+   "docs": [
+    "Close support token22 mint account which can create pool and send rewards while ignoring unsupported extensions."
+   ],
+   "discriminator": [
+    96,
+    136,
+    183,
+    99,
+    72,
+    152,
+    54,
+    131
+   ],
+   "accounts": [
+    {
+     "name": "owner",
+     "docs": [
+      "Address to be set as protocol owner."
+     ],
+     "writable": true,
+     "signer": true
+    },
+    {
+     "name": "token_mint",
+     "docs": [
+      "Support token mint"
+     ]
+    },
+    {
+     "name": "support_mint_associated",
+     "docs": [
+      "Initialize support mint state account to store support mint address and bump."
+     ],
+     "writable": true
+    },
+    {
+     "name": "system_program"
+    }
+   ],
+   "args": []
+  },
+  {
+   "name": "collect_excess_lamports",
+   "docs": [
+    "Collect excess lamports, including accounts for SPL tokens owned by authority and Program PDA accounts."
+   ],
+   "discriminator": [
+    28,
+    189,
+    19,
+    40,
+    164,
+    176,
+    118,
+    17
+   ],
+   "accounts": [
+    {
+     "name": "collect_lamports_wallet",
+     "docs": [
+      "Only admin or collect_lamports can collect lamports"
+     ],
+     "writable": true,
+     "signer": true
+    },
+    {
+     "name": "authority"
+    },
+    {
+     "name": "token_program",
+     "docs": [
+      "The SPL program to perform token transfers"
+     ]
+    },
+    {
+     "name": "token_program_2022",
+     "docs": [
+      "The SPL program 2022 to perform token transfers"
+     ]
+    }
+   ],
+   "args": []
+  }
+ ],
+ "accounts": [
+  {
+   "name": "raydium_cp_swap::states::collection::CollectionMember",
+   "discriminator": [
+    22,
+    193,
+    161,
+    100,
+    208,
+    198,
+    127,
+    44
+   ]
+  },
+  {
+   "name": "raydium_cp_swap::states::collection::Ruleset",
+   "discriminator": [
+    123,
+    92,
+    136,
+    166,
+    160,
+    236,
+    248,
+    180
+   ]
+  },
+  {
+   "name": "raydium_cp_swap::states::collection::TokenCollection",
+   "discriminator": [
+    199,
+    20,
+    36,
+    91,
+    142,
+    152,
+    218,
+    78
+   ]
+  },
+  {
+   "name": "raydium_cp_swap::states::config::AmmConfig",
+   "discriminator": [
+    218,
+    244,
+    33,
+    104,
+    203,
+    203,
+    43,
+    111
+   ]
+  },
+  {
+   "name": "raydium_cp_swap::states::oracle::ObservationState",
+   "discriminator": [
+    122,
+    174,
+    197,
+    53,
+    129,
+    9,
+    165,
+    132
+   ]
+  },
+  {
+   "name": "raydium_cp_swap::states::permission::Permission",
+   "discriminator": [
+    224,
+    83,
+    28,
+    79,
+    10,
+    253,
+    161,
+    28
+   ]
+  },
+  {
+   "name": "raydium_cp_swap::states::pool::PoolState",
+   "discriminator": [
+    247,
+    237,
+    227,
+    245,
+    215,
+    195,
+    222,
+    70
+   ]
+  },
+  {
+   "name": "raydium_cp_swap::states::pool_members::PoolMembers",
+   "discriminator": [
+    65,
+    98,
+    149,
+    106,
+    29,
+    229,
+    76,
+    237
+   ]
+  },
+  {
+   "name": "raydium_cp_swap::states::support_mint_associated::SupportMintAssociated",
+   "discriminator": [
+    134,
+    40,
+    183,
+    79,
+    12,
+    112,
+    162,
+    53
+   ]
+  }
+ ],
+ "types": [
+  {
+   "name": "raydium_cp_swap::states::collection::CollectionMember",
+   "docs": [
+    "Proof that `mint` satisfied the collection's ruleset at registration time."
+   ],
+   "type": {
+    "kind": "struct",
+    "fields": [
+     {
+      "name": "bump",
+      "type": "u8"
+     },
+     {
+      "name": "padding0",
+      "type": {
+       "array": [
+        "u8",
+        7
+       ]
+      }
+     },
+     {
+      "name": "collection",
+      "type": "pubkey"
+     },
+     {
+      "name": "mint",
+      "type": "pubkey"
+     },
+     {
+      "name": "rate",
+      "docs": [
+       "Value of one whole token in the collection's numeraire, 1e9 == 1.0.",
+       "Defaults to `DEFAULT_MEMBER_RATE` (1:1 within the ruleset)."
+      ],
+      "type": "u64"
+     },
+     {
+      "name": "registered_by",
+      "docs": [
+       "Who registered the member"
+      ],
+      "type": "pubkey"
+     },
+     {
+      "name": "padding",
+      "docs": [
+       "padding for future updates"
+      ],
+      "type": {
+       "array": [
+        "u64",
+        8
+       ]
+      }
+     }
+    ]
+   }
+  },
+  {
+   "name": "raydium_cp_swap::states::collection::Ruleset",
+   "docs": [
+    "Admin-defined admission rule. Creation and updates are gated to `crate::admin::ID`;",
+    "referencing a ruleset from a collection is permissionless."
+   ],
+   "type": {
+    "kind": "struct",
+    "fields": [
+     {
+      "name": "bump",
+      "type": "u8"
+     },
+     {
+      "name": "index",
+      "docs": [
+       "Ruleset index (seed)"
+      ],
+      "type": "u16"
+     },
+     {
+      "name": "kind",
+      "docs": [
+       "`RuleKind`"
+      ],
+      "type": "u8"
+     },
+     {
+      "name": "flags",
+      "docs": [
+       "Kind-specific flags"
+      ],
+      "type": "u8"
+     },
+     {
+      "name": "padding0",
+      "type": {
+       "array": [
+        "u8",
+        3
+       ]
+      }
+     },
+     {
+      "name": "program_id",
+      "docs": [
+       "Program whose accounts act as proof (e.g. pump.fun for `PumpFunLaunch`)"
+      ],
+      "type": "pubkey"
+     },
+     {
+      "name": "padding",
+      "docs": [
+       "padding for future updates"
+      ],
+      "type": {
+       "array": [
+        "u64",
+        8
+       ]
+      }
+     }
+    ]
+   }
+  },
+  {
+   "name": "raydium_cp_swap::states::collection::TokenCollection",
+   "docs": [
+    "Permissionless whitelist of mints that satisfy one ruleset. Pools whose two mints are both members",
+    "may be traded through `rebalance_swap_base_input` at `trade_fee_rate / rebalance_fee_divisor`."
+   ],
+   "type": {
+    "kind": "struct",
+    "fields": [
+     {
+      "name": "bump",
+      "type": "u8"
+     },
+     {
+      "name": "index",
+      "docs": [
+       "Collection index (seed, scoped by authority)"
+      ],
+      "type": "u16"
+     },
+     {
+      "name": "padding0",
+      "type": {
+       "array": [
+        "u8",
+        5
+       ]
+      }
+     },
+     {
+      "name": "authority",
+      "docs": [
+       "Creator; may update the fee divisor and member rates"
+      ],
+      "type": "pubkey"
+     },
+     {
+      "name": "ruleset",
+      "docs": [
+       "Ruleset every member must satisfy"
+      ],
+      "type": "pubkey"
+     },
+     {
+      "name": "quote_mint",
+      "docs": [
+       "Numeraire of the collection (e.g. WSOL). Always admitted as a member without a rule check,",
+       "so a \"pump.fun launches\" collection can hold the quote leg of every pool."
+      ],
+      "type": "pubkey"
+     },
+     {
+      "name": "rebalance_fee_divisor",
+      "docs": [
+       "Rebalance swaps pay `amm_config.trade_fee_rate / rebalance_fee_divisor`"
+      ],
+      "type": "u32"
+     },
+     {
+      "name": "member_count",
+      "type": "u32"
+     },
+     {
+      "name": "padding",
+      "docs": [
+       "padding for future updates"
+      ],
+      "type": {
+       "array": [
+        "u64",
+        8
+       ]
+      }
+     }
+    ]
+   }
+  },
+  {
+   "name": "raydium_cp_swap::states::config::AmmConfig",
+   "docs": [
+    "Holds the current owner of the factory"
+   ],
+   "type": {
+    "kind": "struct",
+    "fields": [
+     {
+      "name": "bump",
+      "docs": [
+       "Bump to identify PDA"
+      ],
+      "type": "u8"
+     },
+     {
+      "name": "disable_create_pool",
+      "docs": [
+       "Status to control if new pool can be create"
+      ],
+      "type": "bool"
+     },
+     {
+      "name": "index",
+      "docs": [
+       "Config index"
+      ],
+      "type": "u16"
+     },
+     {
+      "name": "trade_fee_rate",
+      "docs": [
+       "The trade fee, denominated in hundredths of a bip (10^-6)"
+      ],
+      "type": "u64"
+     },
+     {
+      "name": "protocol_fee_rate",
+      "docs": [
+       "The protocol fee"
+      ],
+      "type": "u64"
+     },
+     {
+      "name": "fund_fee_rate",
+      "docs": [
+       "The fund fee, denominated in hundredths of a bip (10^-6)"
+      ],
+      "type": "u64"
+     },
+     {
+      "name": "create_pool_fee",
+      "docs": [
+       "Fee for create a new pool"
+      ],
+      "type": "u64"
+     },
+     {
+      "name": "protocol_owner",
+      "docs": [
+       "Address of the protocol fee owner"
+      ],
+      "type": "pubkey"
+     },
+     {
+      "name": "fund_owner",
+      "docs": [
+       "Address of the fund fee owner"
+      ],
+      "type": "pubkey"
+     },
+     {
+      "name": "creator_fee_rate",
+      "docs": [
+       "The pool creator fee, denominated in hundredths of a bip (10^-6)"
+      ],
+      "type": "u64"
+     },
+     {
+      "name": "padding",
+      "docs": [
+       "padding"
+      ],
+      "type": {
+       "array": [
+        "u64",
+        15
+       ]
+      }
+     }
+    ]
+   }
+  },
+  {
+   "name": "raydium_cp_swap::states::oracle::Observation",
+   "docs": [
+    "The element of observations in ObservationState"
+   ],
+   "serialization": "bytemuckunsafe",
+   "repr": {
+    "kind": "c",
+    "packed": true
+   },
+   "type": {
+    "kind": "struct",
+    "fields": [
+     {
+      "name": "block_timestamp",
+      "docs": [
+       "The block timestamp of the observation"
+      ],
+      "type": "u64"
+     },
+     {
+      "name": "cumulative_token_0_price_x32",
+      "docs": [
+       "the cumulative of token0 price during the duration time, Q32.32, the remaining 64 bit for overflow"
+      ],
+      "type": "u128"
+     },
+     {
+      "name": "cumulative_token_1_price_x32",
+      "docs": [
+       "the cumulative of token1 price during the duration time, Q32.32, the remaining 64 bit for overflow"
+      ],
+      "type": "u128"
+     }
+    ]
+   }
+  },
+  {
+   "name": "raydium_cp_swap::states::oracle::ObservationState",
+   "serialization": "bytemuckunsafe",
+   "repr": {
+    "kind": "c",
+    "packed": true
+   },
+   "type": {
+    "kind": "struct",
+    "fields": [
+     {
+      "name": "initialized",
+      "docs": [
+       "Whether the ObservationState is initialized"
+      ],
+      "type": "bool"
+     },
+     {
+      "name": "observation_index",
+      "docs": [
+       "the most-recently updated index of the observations array"
+      ],
+      "type": "u16"
+     },
+     {
+      "name": "pool_id",
+      "type": "pubkey"
+     },
+     {
+      "name": "observations",
+      "docs": [
+       "observation array"
+      ],
+      "type": {
+       "array": [
+        {
+         "defined": {
+          "name": "raydium_cp_swap::states::oracle::Observation"
+         }
+        },
+        100
+       ]
+      }
+     },
+     {
+      "name": "last_update_timestamp",
+      "docs": [
+       "the last update timestamp"
+      ],
+      "type": "u64"
+     },
+     {
+      "name": "padding",
+      "docs": [
+       "padding for feature update"
+      ],
+      "type": {
+       "array": [
+        "u64",
+        3
+       ]
+      }
+     }
+    ]
+   }
+  },
+  {
+   "name": "raydium_cp_swap::states::permission::Permission",
+   "docs": [
+    "Holds the current owner of the factory"
+   ],
+   "type": {
+    "kind": "struct",
+    "fields": [
+     {
+      "name": "authority",
+      "docs": [
+       "authority"
+      ],
+      "type": "pubkey"
+     },
+     {
+      "name": "padding",
+      "docs": [
+       "padding"
+      ],
+      "type": {
+       "array": [
+        "u64",
+        30
+       ]
+      }
+     }
+    ]
+   }
+  },
+  {
+   "name": "raydium_cp_swap::states::pool::CreatorFeeOn",
+   "type": {
+    "kind": "enum",
+    "variants": [
+     {
+      "name": "BothToken"
+     },
+     {
+      "name": "OnlyToken0"
+     },
+     {
+      "name": "OnlyToken1"
+     }
+    ]
+   }
+  },
+  {
+   "name": "raydium_cp_swap::states::pool::PoolState",
+   "serialization": "bytemuckunsafe",
+   "repr": {
+    "kind": "c",
+    "packed": true
+   },
+   "type": {
+    "kind": "struct",
+    "fields": [
+     {
+      "name": "amm_config",
+      "docs": [
+       "Which config the pool belongs"
+      ],
+      "type": "pubkey"
+     },
+     {
+      "name": "pool_creator",
+      "docs": [
+       "pool creator"
+      ],
+      "type": "pubkey"
+     },
+     {
+      "name": "token_0_vault",
+      "docs": [
+       "Token A"
+      ],
+      "type": "pubkey"
+     },
+     {
+      "name": "token_1_vault",
+      "docs": [
+       "Token B"
+      ],
+      "type": "pubkey"
+     },
+     {
+      "name": "lp_mint",
+      "docs": [
+       "Pool tokens are issued when A or B tokens are deposited.",
+       "Pool tokens can be withdrawn back to the original A or B token."
+      ],
+      "type": "pubkey"
+     },
+     {
+      "name": "token_0_mint",
+      "docs": [
+       "Mint information for token A"
+      ],
+      "type": "pubkey"
+     },
+     {
+      "name": "token_1_mint",
+      "docs": [
+       "Mint information for token B"
+      ],
+      "type": "pubkey"
+     },
+     {
+      "name": "token_0_program",
+      "docs": [
+       "token_0 program"
+      ],
+      "type": "pubkey"
+     },
+     {
+      "name": "token_1_program",
+      "docs": [
+       "token_1 program"
+      ],
+      "type": "pubkey"
+     },
+     {
+      "name": "observation_key",
+      "docs": [
+       "observation account to store oracle data"
+      ],
+      "type": "pubkey"
+     },
+     {
+      "name": "auth_bump",
+      "type": "u8"
+     },
+     {
+      "name": "status",
+      "docs": [
+       "Bitwise representation of the state of the pool",
+       "bit0, 1: disable deposit(value is 1), 0: normal",
+       "bit1, 1: disable withdraw(value is 2), 0: normal",
+       "bit2, 1: disable swap(value is 4), 0: normal"
+      ],
+      "type": "u8"
+     },
+     {
+      "name": "lp_mint_decimals",
+      "type": "u8"
+     },
+     {
+      "name": "mint_0_decimals",
+      "docs": [
+       "mint0 and mint1 decimals"
+      ],
+      "type": "u8"
+     },
+     {
+      "name": "mint_1_decimals",
+      "type": "u8"
+     },
+     {
+      "name": "lp_supply",
+      "docs": [
+       "True circulating supply without burns and lock ups"
+      ],
+      "type": "u64"
+     },
+     {
+      "name": "protocol_fees_token_0",
+      "docs": [
+       "The amounts of token_0 and token_1 that are owed to the liquidity provider."
+      ],
+      "type": "u64"
+     },
+     {
+      "name": "protocol_fees_token_1",
+      "type": "u64"
+     },
+     {
+      "name": "fund_fees_token_0",
+      "type": "u64"
+     },
+     {
+      "name": "fund_fees_token_1",
+      "type": "u64"
+     },
+     {
+      "name": "open_time",
+      "docs": [
+       "The timestamp allowed for swap in the pool."
+      ],
+      "type": "u64"
+     },
+     {
+      "name": "recent_epoch",
+      "docs": [
+       "recent epoch"
+      ],
+      "type": "u64"
+     },
+     {
+      "name": "creator_fee_on",
+      "docs": [
+       "Creator fee collect mode",
+       "0: both token_0 and token_1 can be used as trade fees. It depends on what the input token is when swapping",
+       "1: only token_0 as trade fee",
+       "2: only token_1 as trade fee"
+      ],
+      "type": "u8"
+     },
+     {
+      "name": "enable_creator_fee",
+      "type": "bool"
+     },
+     {
+      "name": "padding1",
+      "type": {
+       "array": [
+        "u8",
+        6
+       ]
+      }
+     },
+     {
+      "name": "creator_fees_token_0",
+      "type": "u64"
+     },
+     {
+      "name": "creator_fees_token_1",
+      "type": "u64"
+     },
+     {
+      "name": "padding",
+      "docs": [
+       "padding for future updates"
+      ],
+      "type": {
+       "array": [
+        "u64",
+        28
+       ]
+      }
+     }
+    ]
+   }
+  },
+  {
+   "name": "raydium_cp_swap::states::pool_members::PoolMember",
+   "docs": [
+    "One constituent of a collection pool. Index 0 is always the pair's own base token (the pool",
+    "token that is not the collection's quote mint) and uses the pool's existing vault and fee fields."
+   ],
+   "type": {
+    "kind": "struct",
+    "fields": [
+     {
+      "name": "mint",
+      "type": "pubkey"
+     },
+     {
+      "name": "vault",
+      "type": "pubkey"
+     },
+     {
+      "name": "decimals",
+      "type": "u8"
+     },
+     {
+      "name": "padding0",
+      "type": {
+       "array": [
+        "u8",
+        7
+       ]
+      }
+     },
+     {
+      "name": "protocol_fees_owed",
+      "docs": [
+       "Fees owed to the protocol / fund in this member's token (unused for index 0, which is",
+       "accounted on `PoolState`)"
+      ],
+      "type": "u64"
+     },
+     {
+      "name": "fund_fees_owed",
+      "type": "u64"
+     },
+     {
+      "name": "padding",
+      "type": {
+       "array": [
+        "u64",
+        2
+       ]
+      }
+     }
+    ]
+   }
+  },
+  {
+   "name": "raydium_cp_swap::states::pool_members::PoolMembers",
+   "docs": [
+    "Turns a CP-Swap pair into a collection pool: extra member vaults hang off the pool and any two",
+    "members (the base token included) swap directly against each other inside the pool. Intra swaps",
+    "are priced by a StableSwap over the members' rate-normalised balances, so the price is exactly",
+    "the collection rate when the pool is balanced and bends away from it as the pool skews.",
+    "The pair's curve against the quote mint is untouched."
+   ],
+   "type": {
+    "kind": "struct",
+    "fields": [
+     {
+      "name": "bump",
+      "type": "u8"
+     },
+     {
+      "name": "base_is_token_0",
+      "docs": [
+       "Whether the base member is `token_0` (else `token_1`) of the pair"
+      ],
+      "type": "bool"
+     },
+     {
+      "name": "n",
+      "type": "u8"
+     },
+     {
+      "name": "padding0",
+      "type": {
+       "array": [
+        "u8",
+        5
+       ]
+      }
+     },
+     {
+      "name": "pool",
+      "type": "pubkey"
+     },
+     {
+      "name": "collection",
+      "type": "pubkey"
+     },
+     {
+      "name": "amp",
+      "docs": [
+       "StableSwap amplification for intra swaps"
+      ],
+      "type": "u64"
+     },
+     {
+      "name": "members",
+      "type": {
+       "array": [
+        {
+         "defined": {
+          "name": "raydium_cp_swap::states::pool_members::PoolMember"
+         }
+        },
+        8
+       ]
+      }
+     },
+     {
+      "name": "padding",
+      "type": {
+       "array": [
+        "u64",
+        8
+       ]
+      }
+     }
+    ]
+   }
+  },
+  {
+   "name": "raydium_cp_swap::states::support_mint_associated::SupportMintAssociated",
+   "docs": [
+    "Holds the current owner of the factory"
+   ],
+   "type": {
+    "kind": "struct",
+    "fields": [
+     {
+      "name": "bump",
+      "docs": [
+       "Bump to identify PDA"
+      ],
+      "type": "u8"
+     },
+     {
+      "name": "mint",
+      "docs": [
+       "Address of the supported token22 mint"
+      ],
+      "type": "pubkey"
+     },
+     {
+      "name": "padding",
+      "type": {
+       "array": [
+        "u64",
+        8
+       ]
+      }
+     }
+    ]
+   }
+  }
+ ],
+ "errors": [
+  {
+   "code": 6000,
+   "name": "NotApproved",
+   "msg": "Not approved"
+  },
+  {
+   "code": 6001,
+   "name": "InvalidOwner",
+   "msg": "Input account owner is not the program address"
+  },
+  {
+   "code": 6002,
+   "name": "EmptySupply",
+   "msg": "Input token account empty"
+  },
+  {
+   "code": 6003,
+   "name": "InvalidInput",
+   "msg": "InvalidInput"
+  },
+  {
+   "code": 6004,
+   "name": "IncorrectLpMint",
+   "msg": "Address of the provided lp token mint is incorrect"
+  },
+  {
+   "code": 6005,
+   "name": "ExceededSlippage",
+   "msg": "Exceeds desired slippage limit"
+  },
+  {
+   "code": 6006,
+   "name": "ZeroTradingTokens",
+   "msg": "Given pool token amount results in zero trading tokens"
+  },
+  {
+   "code": 6007,
+   "name": "NotSupportMint",
+   "msg": "Not support token_2022 mint extension"
+  },
+  {
+   "code": 6008,
+   "name": "InvalidVault",
+   "msg": "invaild vault"
+  },
+  {
+   "code": 6009,
+   "name": "InitLpAmountTooLess",
+   "msg": "Init lp amount is too less(Because 100 amount lp will be locked)"
+  },
+  {
+   "code": 6010,
+   "name": "TransferFeeCalculateNotMatch",
+   "msg": "TransferFee calculate not match"
+  },
+  {
+   "code": 6011,
+   "name": "MathOverflow",
+   "msg": "Math overflow"
+  },
+  {
+   "code": 6012,
+   "name": "InsufficientVault",
+   "msg": "Insufficient vault"
+  },
+  {
+   "code": 6013,
+   "name": "InvalidFeeModel",
+   "msg": "Invalid fee model"
+  },
+  {
+   "code": 6014,
+   "name": "NoFeeCollect",
+   "msg": "Fee is zero"
+  },
+  {
+   "code": 6015,
+   "name": "LamportsCalculateError",
+   "msg": "Lamports calculate error"
+  },
+  {
+   "code": 6016,
+   "name": "InvalidRuleKind",
+   "msg": "Unknown rule kind"
+  },
+  {
+   "code": 6017,
+   "name": "RuleCheckFailed",
+   "msg": "Mint does not satisfy the collection ruleset"
+  },
+  {
+   "code": 6018,
+   "name": "InvalidCollectionMember",
+   "msg": "Collection member does not belong to this collection or mint"
+  },
+  {
+   "code": 6019,
+   "name": "NotRebalancing",
+   "msg": "Rebalance swap must strictly reduce the pool's imbalance"
+  },
+  {
+   "code": 6020,
+   "name": "PoolNotInCollection",
+   "msg": "Pool does not contain the collection's quote mint"
+  },
+  {
+   "code": 6021,
+   "name": "InvalidPoolMember",
+   "msg": "Invalid pool member"
+  },
+  {
+   "code": 6022,
+   "name": "PoolMemberExists",
+   "msg": "Mint is already a member of this pool"
+  },
+  {
+   "code": 6023,
+   "name": "TooManyPoolMembers",
+   "msg": "Too many pool members"
+  },
+  {
+   "code": 6024,
+   "name": "MemberDecimalsMismatch",
+   "msg": "Member decimals must match the base token"
+  },
+  {
+   "code": 6025,
+   "name": "InvalidAmp",
+   "msg": "Invalid amplification"
+  },
+  {
+   "code": 6026,
+   "name": "InsufficientMemberLiquidity",
+   "msg": "Insufficient member liquidity for this swap"
+  },
+  {
+   "code": 6027,
+   "name": "StableCurveConvergence",
+   "msg": "Stable curve did not converge"
+  }
+ ],
+ "events": [
+  {
+   "name": "raydium_cp_swap::instructions::collection_pool::intra_swap::IntraSwapEvent",
+   "discriminator": [
+    175,
+    83,
+    76,
+    136,
+    146,
+    205,
+    99,
+    141
+   ]
+  },
+  {
+   "name": "raydium_cp_swap::instructions::collection::register_collection_member::CollectionMemberRegistered",
+   "discriminator": [
+    14,
+    174,
+    122,
+    60,
+    209,
+    197,
+    47,
+    39
+   ]
+  },
+  {
+   "name": "raydium_cp_swap::states::events::LpChangeEvent",
+   "discriminator": [
+    121,
+    163,
+    205,
+    201,
+    57,
+    218,
+    117,
+    60
+   ]
+  },
+  {
+   "name": "raydium_cp_swap::states::events::SwapEvent",
+   "discriminator": [
+    64,
+    198,
+    205,
+    232,
+    38,
+    8,
+    113,
+    226
+   ]
+  }
+ ]
+}

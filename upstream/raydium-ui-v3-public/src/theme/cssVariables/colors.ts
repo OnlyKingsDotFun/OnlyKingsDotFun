@@ -1,0 +1,332 @@
+export const darkColors: Record<keyof typeof colors, string> = {
+  // OnlyKings palette: ink surfaces, warm ivory type, and crown gold.
+  // One accent family; semantic colors derived in the same space; no gradients.
+  primary: 'oklch(0.86 0.045 75)',
+  secondary: 'oklch(0.82 0.14 85)',
+  secondary10: 'oklch(0.82 0.14 85 / 0.12)',
+  backgroundDark: 'oklch(0.13 0.012 270)',
+  backgroundDark50: 'oklch(0.13 0.012 270 / 0.5)',
+  backgroundMedium: 'oklch(0.18 0.014 270)',
+  backgroundLight: 'oklch(0.22 0.016 270)',
+  backgroundLight50: 'oklch(0.22 0.016 270 / 0.55)',
+  backgroundLight30: 'oklch(0.22 0.016 270 / 0.3)',
+  backgroundTransparent12: 'oklch(0.86 0.045 75 / 0.12)',
+  backgroundTransparent07: 'oklch(0.86 0.045 75 / 0.07)',
+  backgroundTransparent10: 'oklch(0.86 0.045 75 / 0.1)',
+  textPrimary: 'oklch(0.96 0.01 75)',
+  textSecondary: 'oklch(0.84 0.045 75)',
+  textTertiary: 'oklch(0.84 0.045 75 / 0.62)',
+  textRevertPrimary: 'oklch(0.16 0.02 75)',
+  textLink: 'oklch(0.82 0.14 85)',
+  textQuaternary: 'oklch(0.9 0.03 75)',
+  textQuinary: 'oklch(0.22 0.016 270)',
+  textSenary: 'oklch(0.9 0.03 75 / 0.5)',
+  textSeptenary: 'oklch(0.82 0.14 85)',
+  textPurple: 'oklch(0.74 0.09 300)',
+  textPink: 'oklch(0.7 0.19 350)',
+  textLaunchpadLink: 'oklch(0.82 0.14 85)',
+  buttonPrimary: 'oklch(0.82 0.14 85)',
+  buttonPrimary__01: 'oklch(0.82 0.14 85)',
+  buttonPrimary__02: 'oklch(0.76 0.14 85)',
+  buttonSolidText: 'oklch(0.16 0.02 75)',
+  buttonSecondary: 'oklch(0.7 0.05 75)',
+  switchOn: 'oklch(0.82 0.14 85)',
+  switchOff: 'oklch(0.55 0.03 75)',
+  selectActive: 'oklch(0.86 0.045 75)',
+  selectActiveSecondary: 'oklch(0.82 0.14 85)',
+  selectInactive: 'oklch(0.86 0.045 75 / 0.1)',
+  chart01: 'oklch(0.82 0.14 85)',
+  chart02: 'oklch(0.78 0.14 150)',
+  chart03: 'oklch(0.74 0.11 215)',
+  chart04: 'oklch(0.7 0.16 300)',
+  chart05: 'oklch(0.7 0.18 35)',
+  chart06: 'oklch(0.88 0.16 100)',
+  chart07: 'oklch(0.66 0.14 260)',
+  chart08: 'oklch(0.72 0.13 180)',
+  chart09: 'oklch(0.7 0.16 300 / 0.2)',
+  iconBg: 'oklch(0.6 0.05 75)',
+  iconEmptyStroke: 'oklch(0.13 0.012 270)',
+  semanticSuccess: 'oklch(0.78 0.15 150)',
+  semanticError: 'oklch(0.66 0.2 20)',
+  semanticWarning: 'oklch(0.86 0.16 90)',
+  semanticNeutral: 'oklch(0.84 0.045 75)',
+  semanticFocus: 'oklch(0.84 0.14 85)',
+  semanticFocusShadow: 'oklch(0.84 0.14 85 / 0.25)',
+  tabFolderTabListBg: 'var(--background-light-opacity)',
+  stepActiveBg: 'var(--background-light)',
+  stepHoofBg: 'var(--primary)',
+  priceFloatingUp: 'oklch(0.78 0.15 150)',
+  priceFloatingDown: 'oklch(0.66 0.2 20)',
+  priceFloatingFlat: 'oklch(0.6 0.02 75)',
+  tooltipBg: 'oklch(0.2 0.016 75)',
+  popoverBg: 'oklch(0.19 0.015 270)',
+  scrollbarThumb: 'oklch(0.86 0.045 75 / 0.22)',
+  badgePurple: 'oklch(0.74 0.09 300 / 0.5)',
+  badgeBlue: 'oklch(0.82 0.14 85 / 0.4)',
+  dividerBg: 'oklch(0.86 0.045 75 / 0.12)',
+  inputMask: 'oklch(0.13 0.012 270 / 0.4)',
+  backgroundApp: 'oklch(0.14 0.012 270)',
+  solidButtonBg: 'oklch(0.82 0.14 85)',
+  outlineButtonBg: 'oklch(0.82 0.14 85 / 0.12)',
+  filledProgressBg: 'oklch(0.82 0.14 85)',
+  transparentContainerBg: 'oklch(0.22 0.016 270 / 0.6)',
+  cardStackBg: 'oklch(0.22 0.016 270)',
+  modalContainerBg: 'oklch(0.86 0.045 75 / 0.07)',
+  infoButtonBg: 'oklch(0.86 0.045 75 / 0.2)',
+  warnButtonBg: 'oklch(0.86 0.16 90 / 0.2)',
+  warnButtonLightBg: 'oklch(0.86 0.16 90 / 0.1)',
+  buttonBg01: 'oklch(0.86 0.045 75 / 0.12)',
+  lightPurple: 'oklch(0.9 0.03 75)',
+  background01: 'oklch(0.12 0.012 270)',
+  background02: 'oklch(0.14 0.012 270 / 0.5)',
+  background03: 'oklch(0.66 0.2 20 / 0.1)',
+  cardBorder01: 'oklch(0.32 0.02 270)',
+  text01: 'oklch(0.86 0.16 100)',
+  text02: 'oklch(0.98 0.005 75)',
+  text03: 'oklch(0.76 0.03 75)',
+  brandGradient: 'oklch(0.82 0.14 85)',
+  dividerDashGradient: 'repeating-linear-gradient(to right, currentColor 0 5px, transparent 5px 10px)',
+  tokenAvatarBg: 'oklch(0.22 0.016 270)',
+  panelCardShadow: '0px 1px 0px oklch(1 0 0 / 0.04) inset, 0px 12px 32px oklch(0 0 0 / 0.35)',
+  panelCardBorder: '1px solid oklch(0.30 0.02 270)',
+  positive: 'oklch(0.78 0.15 150)',
+  negative: 'oklch(0.66 0.2 20)'
+}
+
+export const lightColors: Partial<typeof darkColors> = {
+  // OnlyKings palette: ink surfaces, warm ivory type, and crown gold.
+  // One accent family; semantic colors derived in the same space; no gradients.
+  primary: 'oklch(0.45 0.05 75)',
+  secondary: 'oklch(0.58 0.16 65)',
+  secondary10: 'oklch(0.58 0.16 65 / 0.12)',
+  backgroundDark: 'oklch(0.94 0.012 75)',
+  backgroundDark50: 'oklch(0.94 0.012 75 / 0.5)',
+  backgroundMedium: 'oklch(0.97 0.01 75)',
+  backgroundLight: 'oklch(0.995 0.004 75)',
+  backgroundLight50: 'oklch(0.995 0.004 75 / 0.6)',
+  backgroundLight30: 'oklch(0.995 0.004 75 / 0.3)',
+  backgroundTransparent12: 'oklch(0.45 0.05 75 / 0.1)',
+  backgroundTransparent07: 'oklch(0.45 0.05 75 / 0.06)',
+  backgroundTransparent10: 'oklch(0.45 0.05 75 / 0.08)',
+  textPrimary: 'oklch(0.2 0.02 75)',
+  textSecondary: 'oklch(0.4 0.04 75)',
+  textTertiary: 'oklch(0.4 0.04 75 / 0.7)',
+  textRevertPrimary: 'oklch(0.98 0.005 75)',
+  textLink: 'oklch(0.55 0.16 65)',
+  textQuaternary: 'oklch(0.3 0.03 75)',
+  textQuinary: 'oklch(0.97 0.01 75)',
+  textSenary: 'oklch(0.3 0.03 75 / 0.55)',
+  textSeptenary: 'oklch(0.55 0.16 65)',
+  textPurple: 'oklch(0.5 0.12 300)',
+  textPink: 'oklch(0.58 0.2 350)',
+  textLaunchpadLink: 'oklch(0.55 0.16 65)',
+  buttonPrimary: 'oklch(0.58 0.16 65)',
+  buttonPrimary__01: 'oklch(0.58 0.16 65)',
+  buttonPrimary__02: 'oklch(0.52 0.15 65)',
+  buttonSolidText: 'oklch(0.99 0.005 75)',
+  buttonSecondary: 'oklch(0.5 0.05 75)',
+  switchOn: 'oklch(0.58 0.16 65)',
+  switchOff: 'oklch(0.75 0.03 75)',
+  selectActive: 'oklch(0.45 0.05 75)',
+  selectActiveSecondary: 'oklch(0.58 0.16 65)',
+  selectInactive: 'oklch(0.45 0.05 75 / 0.1)',
+  chart01: 'oklch(0.62 0.16 65)',
+  chart02: 'oklch(0.58 0.14 150)',
+  chart03: 'oklch(0.56 0.11 215)',
+  chart04: 'oklch(0.52 0.16 300)',
+  chart05: 'oklch(0.58 0.18 35)',
+  chart06: 'oklch(0.75 0.16 100)',
+  chart07: 'oklch(0.5 0.14 260)',
+  chart08: 'oklch(0.56 0.13 180)',
+  chart09: 'oklch(0.52 0.16 300 / 0.2)',
+  iconBg: 'oklch(0.7 0.04 75)',
+  iconEmptyStroke: 'oklch(0.94 0.012 75)',
+  semanticSuccess: 'oklch(0.58 0.15 150)',
+  semanticError: 'oklch(0.56 0.2 20)',
+  semanticWarning: 'oklch(0.72 0.16 85)',
+  semanticNeutral: 'oklch(0.4 0.04 75)',
+  semanticFocus: 'oklch(0.58 0.16 65)',
+  semanticFocusShadow: 'oklch(0.58 0.16 65 / 0.25)',
+  tabFolderTabListBg: 'var(--background-light-opacity)',
+  stepActiveBg: 'var(--background-light)',
+  stepHoofBg: 'var(--primary)',
+  priceFloatingUp: 'oklch(0.58 0.15 150)',
+  priceFloatingDown: 'oklch(0.56 0.2 20)',
+  priceFloatingFlat: 'oklch(0.55 0.02 75)',
+  tooltipBg: 'oklch(0.25 0.02 75)',
+  popoverBg: 'oklch(0.995 0.004 75)',
+  scrollbarThumb: 'oklch(0.4 0.04 75 / 0.25)',
+  badgePurple: 'oklch(0.5 0.12 300 / 0.35)',
+  badgeBlue: 'oklch(0.58 0.16 65 / 0.3)',
+  dividerBg: 'oklch(0.4 0.04 75 / 0.14)',
+  inputMask: 'oklch(0.94 0.012 75 / 0.5)',
+  backgroundApp: 'oklch(0.965 0.012 75)',
+  solidButtonBg: 'oklch(0.58 0.16 65)',
+  outlineButtonBg: 'oklch(0.58 0.16 65 / 0.12)',
+  filledProgressBg: 'oklch(0.58 0.16 65)',
+  transparentContainerBg: 'oklch(0.45 0.05 75 / 0.06)',
+  cardStackBg: 'oklch(0.995 0.004 75)',
+  modalContainerBg: 'oklch(0.45 0.05 75 / 0.06)',
+  infoButtonBg: 'oklch(0.45 0.05 75 / 0.14)',
+  warnButtonBg: 'oklch(0.72 0.16 85 / 0.2)',
+  warnButtonLightBg: 'oklch(0.72 0.16 85 / 0.1)',
+  buttonBg01: 'oklch(0.45 0.05 75 / 0.1)',
+  lightPurple: 'oklch(0.3 0.03 75)',
+  background01: 'oklch(0.965 0.012 75)',
+  background02: 'oklch(0.94 0.012 75 / 0.5)',
+  background03: 'oklch(0.56 0.2 20 / 0.1)',
+  cardBorder01: 'oklch(0.85 0.02 75)',
+  text01: 'oklch(0.55 0.14 85)',
+  text02: 'oklch(0.15 0.01 75)',
+  text03: 'oklch(0.4 0.03 75)',
+  brandGradient: 'oklch(0.58 0.16 65)',
+  dividerDashGradient: 'repeating-linear-gradient(to right, currentColor 0 5px, transparent 5px 10px)',
+  tokenAvatarBg: 'oklch(0.94 0.012 75)',
+  panelCardShadow: '0px 1px 2px oklch(0 0 0 / 0.06), 0px 12px 32px oklch(0.3 0.03 75 / 0.10)',
+  panelCardBorder: '1px solid oklch(0.88 0.02 75)',
+  positive: 'oklch(0.58 0.15 150)',
+  negative: 'oklch(0.56 0.2 20)'
+}
+
+export const colors = {
+  // app main bg color
+  primary: 'var(--primary)',
+  secondary: 'var(--secondary)',
+  secondary10: 'var(--secondary10)',
+
+  // component color
+  backgroundDark: 'var(--background-dark)',
+  backgroundDark50: 'var(--background-dark50)',
+  backgroundMedium: 'var(--background-medium)',
+  backgroundLight: 'var(--background-light)',
+  backgroundLight50: 'var(--background-light50)',
+  backgroundLight30: 'var(--background-light30)',
+  backgroundTransparent12: 'var(--background-transparent12)',
+  backgroundTransparent07: 'var(--background-transparent07)',
+  backgroundTransparent10: 'var(--background-transparent10)',
+
+  // text
+  /** white */
+  textPrimary: 'var(--text-primary)',
+  /** #abc4ff */
+  textSecondary: 'var(--text-secondary)',
+  /** #abc4ff80 */
+  textTertiary: 'var(--text-tertiary)',
+  textRevertPrimary: 'var(--text-revert-primary)',
+
+  textLink: 'var(--text-link)',
+
+  /** 🤔 what's this */
+  textQuaternary: 'var(--text-quaternary)',
+  /** 🤔 what's this */
+  textQuinary: 'var(--text-quinary)',
+  /** 🤔 what's this */
+  textSenary: 'var(--text-senary)',
+  /** 🤔 what's this */
+  textSeptenary: 'var(--text-septenary)',
+  /** 🤔 what's this */
+  textPurple: 'var(--text-purple)',
+  /** 🤔 what's this */
+  textPink: 'var(--text-pink)',
+
+  textLaunchpadLink: 'var(--text-launchpad-link)',
+
+  // button
+  buttonPrimary: 'var(--button-primary)',
+  buttonPrimary__01: 'var(--button-primary__01)',
+  buttonPrimary__02: 'var(--button-primary__02)',
+  buttonSolidText: 'var(--button-solid-text)',
+  buttonSecondary: 'var(--button-secondary)',
+
+  // switch
+  switchOn: 'var(--switch-on)',
+  switchOff: 'var(--switch-off)',
+  selectActive: 'var(--select-active)',
+  selectActiveSecondary: 'var(--select-active-secondary)',
+  selectInactive: 'var(--select-inactive)',
+
+  // chart
+  chart01: 'var(--chart01)',
+  chart02: 'var(--chart02)',
+  chart03: 'var(--chart03)',
+  chart04: 'var(--chart04)',
+  chart05: 'var(--chart05)',
+  chart06: 'var(--chart06)',
+  chart07: 'var(--chart07)',
+  chart08: 'var(--chart08)',
+  chart09: 'var(--chart09)',
+
+  // Icon
+  iconBg: 'var(--icon-bg)',
+  iconEmptyStroke: 'var(--icon-empty-stroke)',
+
+  // success/warning/error/info
+  semanticSuccess: 'var(--semantic-success)',
+  semanticError: 'var(--semantic-error)',
+  semanticWarning: 'var(--semantic-warning)',
+  semanticNeutral: 'var(--semantic-neutral)',
+  semanticFocus: 'var(--semantic-focus)',
+  semanticFocusShadow: 'var(--semantic-focus-shadow)',
+
+  // Tab
+  tabFolderTabListBg: 'var(--tab-folder-tab-list-bg)',
+
+  // Step
+  stepActiveBg: 'var(--step-active-bg)',
+  stepHoofBg: 'var(--step-hoof-bg)',
+
+  // +1% is priceFloatingUp; -1% is priceFloatingDown
+  priceFloatingUp: 'var(--price-floating-up)',
+  priceFloatingDown: 'var(--price-floating-down)',
+  priceFloatingFlat: 'var(--price-floating-flat)',
+
+  // tooltip (this color is not in figma ui color system,but in figma ui page)
+  tooltipBg: 'var(--tooltip-bg)',
+
+  popoverBg: 'var(--popover-bg)',
+
+  //customize component theme (by V3 frontend coder)
+  scrollbarThumb: 'var(--scrollbar-thumb)',
+
+  // badge
+  badgePurple: 'var(--badge-purple)',
+  badgeBlue: 'var(--badge-blue)',
+
+  // divider
+  dividerBg: 'var(--divider-bg)',
+
+  // input
+  inputMask: 'var(--input-mask)',
+
+  // customize (by V3 frontend coder)
+  backgroundApp: 'var(--background-app)',
+  solidButtonBg: 'var(--solid-button-bg)',
+  outlineButtonBg: 'var(--outline-button-bg)',
+  filledProgressBg: 'var(--filled-progress-bg)',
+  transparentContainerBg: 'var(--transparent-container-bg)',
+  cardStackBg: 'var(--card-stack-bg)',
+  modalContainerBg: 'var(--modal-container-bg)',
+  infoButtonBg: 'var(--info-button-bg)',
+  warnButtonBg: 'var(--warn-button-bg)',
+  warnButtonLightBg: 'var(--warn-button-light-bg)',
+  buttonBg01: 'var(--button-bg-01)',
+  lightPurple: 'var(--divider-bg-light-purple)',
+  background01: 'var(--background-01)',
+  background02: 'var(--background-02)',
+  background03: 'var(--background-03)',
+  cardBorder01: 'var(--card-border-01)',
+  text01: 'var(--text-01)',
+  text02: 'var(--text-02)',
+  text03: 'var(--text-03)',
+  /** it's designer's variable name in Figma */
+  brandGradient: 'var(--brand-gradient)',
+  dividerDashGradient: 'var(--divider-dash-gradient)',
+
+  tokenAvatarBg: 'var(--token-avatar-bg)',
+
+  panelCardShadow: 'var(--panel-card-shadow)',
+  panelCardBorder: 'var(--panel-card-border)',
+
+  positive: 'var(--positive)',
+  negative: 'var(--negative)'
+}

@@ -1,0 +1,16 @@
+{
+  "name": "@raygauge/gauge-gen",
+  "version": "0.0.1",
+  "license": "UNLICENSED",
+  "main": "build/index.js",
+  "types": "build/index.d.ts",
+  "scripts": {
+    "build": "tsc --build"
+  },
+  "dependencies": {
+    "@coral-xyz/anchor": "^0.29.0"
+  },
+  "devDependencies": {
+    "typescript": "5.2.2"
+  }
+}

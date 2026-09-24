@@ -1,0 +1,8 @@
+{
+  "name": "raygauge-mono",
+  "private": true,
+  "workspaces": [
+    "packages/*",
+    "sol"
+  ]
+}

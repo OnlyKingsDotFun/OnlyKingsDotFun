@@ -1,0 +1,16 @@
+node_modules/
+target/
+.cargo-target/
+.local/
+.next/
+.vercel/
+out/
+*.so
+*.tsbuildinfo
+.DS_Store
+keys/
+*-keypair.json
+.env
+.env.*
+!.env.example
+!.env.*.example

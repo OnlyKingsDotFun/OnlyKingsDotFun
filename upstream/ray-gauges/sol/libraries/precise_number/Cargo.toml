@@ -1,0 +1,13 @@
+[package]
+name = "precise_number"
+version = "0.1.0"
+description = "Fixed point number"
+edition = "2021"
+
+[lib]
+crate-type = ["cdylib", "lib"]
+name = "precise_number"
+
+[dependencies]
+spl-math = { version = "0.3", features = ["no-entrypoint"] }
+anchor-lang = "0.32.1"

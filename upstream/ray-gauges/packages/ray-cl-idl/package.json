@@ -1,0 +1,18 @@
+{
+  "name": "@raygauge/ray-cl-idl",
+  "version": "0.0.1",
+  "license": "UNLICENSED",
+  "main": "build/index.js",
+  "types": "build/index.d.ts",
+  "scripts": {
+    "build": "tsc --build",
+    "gen": "anchor-client-gen ./src/amm_v3.json ./src/gen --program-id CAMMCzo5YL8w4VFF8KVHrK22GGUsp5VTaW7grrKgrWqK"
+  },
+  "dependencies": {
+    "@coral-xyz/anchor": "0.29.0",
+    "anchor-client-gen": "^0.28.1"
+  },
+  "devDependencies": {
+    "typescript": "5.2.2"
+  }
+}

@@ -1,0 +1,30 @@
+[package]
+name = "gauge"
+version = "0.1.0"
+description = "Created with Anchor"
+edition = "2021"
+
+[lib]
+crate-type = ["cdylib", "lib"]
+name = "gauge"
+
+[features]
+no-entrypoint = []
+no-idl = []
+no-log-ix-name = []
+cpi = ["no-entrypoint"]
+default = []
+localnet = []
+idl-build = ["anchor-lang/idl-build", "anchor-spl/idl-build"]
+
+[dependencies]
+anchor-lang = "0.32.1"
+anchor-spl = "0.32.1"
+precise_number = { path = "../../libraries/precise_number" }
+reactor = { path = "../reactor", features = ["cpi"] }
+# CLMM on Anchor 0.32.1 with `update_personal_rewards` (raydium-io/raydium-clmm PR: rebase of fix_guage_depend).
+# `package` rename keeps the `raydium_amm_v3::` paths used in this crate. Flip to raydium-io once merged.
+raydium-amm-v3 = { package = "raydium-clmm", git = "https://github.com/staccDOTsol/raydium-clmm", rev = "159aa7b6c482e34da6ce770c2fe8494e50c40a6d", features = [
+    "cpi",
+] }
+cp-lp-escrow = { path = "../cp-lp-escrow", features = ["cpi"] }

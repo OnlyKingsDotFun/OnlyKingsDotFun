@@ -1,0 +1,43 @@
+{
+  "version": "0.0.1",
+  "name": "@raygauge/reactor-sol",
+  "scripts": {
+    "lint:fix": "prettier */*.js \"*/**/*{.js,.ts}\" -w",
+    "lint": "prettier */*.js \"*/**/*{.js,.ts}\" --check",
+    "gen-reactor": "anchor-client-gen ./target/idl/reactor.json ../packages/reactor-gen/src  --program-id DYt9TpjENhrD8GCBPiBkwVNbb8jDAELqnCCGrHqKzvwY",
+    "gen-gauge": "anchor-client-gen ./target/idl/gauge.json ../packages/gauge-gen/src  --program-id b1tVsd3q8i4JpSJctQCQtkScXou4mVaKVhSJThiqf3s",
+    "gen-cp-lp-escrow": "anchor-client-gen ./target/idl/cp_lp_escrow.json ../packages/cp-lp-escrow-gen/src --program-id 9GXRUvyuS444wsgY7uXJqtJjb5XHXCBd4hCZD83nAD42",
+    "gen": "npm run gen-reactor && npm run gen-gauge && npm run gen-cp-lp-escrow",
+    "test": "ts-mocha tests/*.test.ts"
+  },
+  "dependencies": {
+    "@coral-xyz/anchor": "0.29.0",
+    "@coral-xyz/borsh": "0.29.0",
+    "@raydium-io/raydium-sdk-v2": "^0.1.92-alpha",
+    "@raygauge/cp-lp-escrow-pda": "0.0.1",
+    "@raygauge/cp-lp-escrow-sdk": "0.0.1",
+    "@raygauge/gauge-pda": "0.0.1",
+    "@raygauge/gauge-sdk": "0.0.1",
+    "@raygauge/number": "0.0.1",
+    "@raygauge/ray-cl-idl": "0.0.1",
+    "@raygauge/ray-cl-ix": "0.0.1",
+    "@raygauge/ray-cl-pda": "0.0.1",
+    "@raygauge/ray-cp-pda": "0.0.1",
+    "@raygauge/reactor-sdk": "0.0.1",
+    "@solana/spl-token": "0.4.0",
+    "@types/bn.js": "^5.1.0",
+    "@types/chai": "^4.3.17",
+    "@types/mocha": "10.0.7",
+    "anchor-bankrun": "^0.3.0",
+    "anchor-client-gen": "^0.28.1",
+    "bs58": "^5.0.0",
+    "chai": "4",
+    "decimal.js": "^10.4.3",
+    "mocha": "10.7.3",
+    "prettier": "^2.6.2",
+    "solana-bankrun": "^0.3.0",
+    "ts-mocha": "10.0.0",
+    "ts-node": "9",
+    "typescript": "^5.5.4"
+  }
+}

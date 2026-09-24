@@ -1,0 +1,11 @@
+.anchor
+tsconfig.tsbuildinfo
+.vscode
+node_modules
+build
+/sol/target/*
+/sol/target/deploy/*.so
+!/sol/target/deploy
+!/sol/target/deploy/*-keypair.json
+.yarn
+.yarnrc.yml

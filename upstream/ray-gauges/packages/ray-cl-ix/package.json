@@ -1,0 +1,20 @@
+{
+  "name": "@raygauge/ray-cl-ix",
+  "version": "0.0.1",
+  "license": "UNLICENSED",
+  "main": "build/index.js",
+  "types": "build/index.d.ts",
+  "scripts": {
+    "build": "tsc --build"
+  },
+  "dependencies": {
+    "@coral-xyz/anchor": "^0.29.0",
+    "@raydium-io/raydium-sdk-v2": "^0.1.92-alpha",
+    "@raygauge/ray-cl-idl": "0.0.1",
+    "@raygauge/ray-cl-pda": "0.0.1",
+    "@solana/spl-token": "0.4.6"
+  },
+  "devDependencies": {
+    "typescript": "5.2.2"
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "name": "@raygauge/gauge-sdk",
+  "version": "0.0.1",
+  "license": "UNLICENSED",
+  "main": "build/index.js",
+  "types": "build/index.d.ts",
+  "scripts": {
+    "build": "tsc --build"
+  },
+  "dependencies": {
+    "@coral-xyz/anchor": "^0.29.0",
+    "@raydium-io/raydium-sdk-v2": "^0.1.92-alpha",
+    "@raygauge/cp-lp-escrow-gen": "0.0.1",
+    "@raygauge/cp-lp-escrow-pda": "0.0.1",
+    "@raygauge/gauge-gen": "0.0.1",
+    "@raygauge/gauge-pda": "0.0.1",
+    "@raygauge/number": "0.0.1",
+    "@raygauge/ray-cl-idl": "0.0.1",
+    "@raygauge/ray-cl-pda": "0.0.1",
+    "@raygauge/reactor-gen": "0.0.1",
+    "@raygauge/reactor-sdk": "0.0.1",
+    "@solana/spl-token": "^0.4.0"
+  },
+  "devDependencies": {
+    "typescript": "5.2.2"
+  }
+}

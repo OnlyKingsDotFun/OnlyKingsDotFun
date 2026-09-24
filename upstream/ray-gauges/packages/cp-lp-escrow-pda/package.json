@@ -1,0 +1,17 @@
+{
+  "name": "@raygauge/cp-lp-escrow-pda",
+  "version": "0.0.1",
+  "license": "UNLICENSED",
+  "main": "build/index.js",
+  "types": "build/index.d.ts",
+  "scripts": {
+    "build": "tsc --build"
+  },
+  "dependencies": {
+    "@coral-xyz/anchor": "^0.29.0",
+    "@raygauge/cp-lp-escrow-gen": "0.0.1"
+  },
+  "devDependencies": {
+    "typescript": "5.2.2"
+  }
+}

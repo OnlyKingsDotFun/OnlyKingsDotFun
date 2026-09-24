@@ -1,0 +1,151 @@
+name: DYNAMIC_BONDING_CURVE
+
+on:
+  pull_request:
+    branches:
+      - main
+      - release_*
+
+env:
+  SOLANA_CLI_VERSION: 3.1.10
+  ANCHOR_CLI_VERSION: 1.0.2
+  TOOLCHAIN: 1.93.0
+
+jobs:
+  program_changed_files:
+    runs-on: ubuntu-latest
+    outputs:
+      program: ${{steps.changed-files-specific.outputs.any_changed}}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Get specific changed files
+        id: changed-files-specific
+        uses: tj-actions/changed-files@v18.6
+        with:
+          files: |
+            programs/dynamic-bonding-curve
+
+  cargo_fmt:
+    runs-on: ubuntu-latest
+    needs: program_changed_files
+    if: needs.program_changed_files.outputs.program == 'true'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          toolchain: ${{ env.TOOLCHAIN }}
+          components: rustfmt
+      - run: cargo fmt --all -- --check
+        shell: bash
+
+  anchor_build:
+    runs-on: ubuntu-latest
+    needs: program_changed_files
+    if: needs.program_changed_files.outputs.program == 'true'
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+      - uses: ./.github/actions/setup-solana
+      - uses: ./.github/actions/setup-dep
+      - uses: ./.github/actions/setup-anchor
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          toolchain: ${{ env.TOOLCHAIN }}
+          components: clippy
+      # Cache rust, cargo
+      - uses: Swatinem/rust-cache@v2
+        with:
+          cache-targets: "true"
+          cache-on-failure: true
+      - uses: actions/cache@v4
+        with:
+          path: ~/.anchor
+          key: anchor-${{ runner.os }}-${{ hashFiles('Anchor.toml') }}
+      - run: anchor build --ignore-keys
+        shell: bash
+
+  unit_test:
+    runs-on: ubuntu-latest
+    needs: program_changed_files
+    if: needs.program_changed_files.outputs.program == 'true'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          toolchain: ${{ env.TOOLCHAIN }}
+          components: clippy
+      # Cache rust, cargo
+      - uses: Swatinem/rust-cache@v2
+      - run: cargo test --package dynamic-bonding-curve
+        shell: bash
+      - run: cargo test --package dynamic-bonding-curve-sdk
+        shell: bash
+
+  integration_test:
+    runs-on: ubuntu-latest
+    needs: program_changed_files
+    if: needs.program_changed_files.outputs.program == 'true'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ./.github/actions/setup-solana
+      - uses: ./.github/actions/setup-dep
+      - uses: ./.github/actions/setup-anchor
+      # Install bun
+      - uses: oven-sh/setup-bun@v2
+      # Install toolchain
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          toolchain: ${{ env.TOOLCHAIN }}
+          components: clippy
+      # Cache rust, cargo
+      - uses: Swatinem/rust-cache@v2
+      # Cache node_modules
+      - uses: actions/cache@v4
+        id: cache-node-modules
+        with:
+          path: ./node_modules
+          key: ${{ runner.os }}-${{ hashFiles('./bun.lock') }}
+      - run: which anchor
+        shell: bash
+      # Testing
+      - run: bun install
+        shell: bash
+      # Run tests
+      - run: bun run build-local-test
+        shell: bash
+
+  backwards_compatibility_tests:
+    runs-on: ubuntu-latest
+    needs: program_changed_files
+    if: needs.program_changed_files.outputs.program == 'true'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ./.github/actions/setup-solana
+      - uses: ./.github/actions/setup-dep
+      - uses: ./.github/actions/setup-anchor
+      # Install bun
+      - uses: oven-sh/setup-bun@v2
+      # Install toolchain
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          toolchain: ${{ env.TOOLCHAIN }}
+          components: clippy
+      # Cache rust, cargo
+      - uses: Swatinem/rust-cache@v2
+      # Cache node_modules
+      - uses: actions/cache@v4
+        id: cache-node-modules
+        with:
+          path: ./node_modules
+          key: ${{ runner.os }}-${{ hashFiles('./bun.lock') }}
+      - run: which anchor
+        shell: bash
+      # Testing
+      - run: bun install
+        shell: bash
+      # Run tests
+      - run: bun run build-local-ctest
+        shell: bash

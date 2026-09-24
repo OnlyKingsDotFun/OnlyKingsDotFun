@@ -1,0 +1,21 @@
+{
+  "name": "@raygauge/cp-lp-escrow-sdk",
+  "version": "0.0.1",
+  "license": "UNLICENSED",
+  "main": "build/index.js",
+  "types": "build/index.d.ts",
+  "scripts": {
+    "build": "tsc --build"
+  },
+  "dependencies": {
+    "@coral-xyz/anchor": "^0.29.0",
+    "@raygauge/cp-lp-escrow-gen": "0.0.1",
+    "@raygauge/cp-lp-escrow-pda": "0.0.1",
+    "@raygauge/number": "0.0.1",
+    "@raygauge/ray-cp-pda": "0.0.1",
+    "@solana/spl-token": "^0.4.0"
+  },
+  "devDependencies": {
+    "typescript": "5.2.2"
+  }
+}

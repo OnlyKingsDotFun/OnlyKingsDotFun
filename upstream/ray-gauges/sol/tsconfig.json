@@ -1,0 +1,60 @@
+{
+  "compilerOptions": {
+    "types": ["node", "mocha", "chai"],
+    "lib": ["es2015", "ESNext"],
+    "module": "commonjs",
+    "target": "es2020",
+    "composite": true,
+    "incremental": true,
+    "esModuleInterop": true,
+    "moduleResolution": "node",
+    "outDir": "build",
+    "resolveJsonModule": true
+  },
+  "include": [
+    "./tests-validator/**/*.ts",
+    "./tests-validator/**/*.json",
+    "./tests/*.ts",
+    "./target/types/*.ts",
+    "./vendor/raydium-cp-swap/target/idl/*.json",
+    "./vendor/raydium-cp-swap/target/types/*.ts",
+    "./vendor/raydium-clmm/target/idl/*.json",
+    "./vendor/raydium-clmm/target/types/*.ts"
+  ],
+  "exclude": ["node_modules", "build"],
+  "references": [
+    {
+      "path": "../packages/reactor-gen"
+    },
+    {
+      "path": "../packages/number"
+    },
+    {
+      "path": "../packages/cp-lp-escrow-sdk"
+    },
+    {
+      "path": "../packages/gauge-pda"
+    },
+    {
+      "path": "../packages/cp-lp-escrow-pda"
+    },
+    {
+      "path": "../packages/ray-cl-ix"
+    },
+    {
+      "path": "../packages/ray-cp-pda"
+    },
+    {
+      "path": "../packages/reactor-sdk"
+    },
+    {
+      "path": "../packages/gauge-sdk"
+    },
+    {
+      "path": "../packages/ray-cl-idl"
+    },
+    {
+      "path": "../packages/ray-cl-pda"
+    }
+  ]
+}

@@ -1,0 +1,17 @@
+[toolchain]
+anchor_version = "1.0.2"
+
+[workspace]
+members = ["programs/isotope-launch", "programs/isotope-ve"]
+
+[features]
+resolution = true
+skip-lint = false
+
+[programs.localnet]
+isotope_launch = "LNCHrLBqZpUmvvB7Nn5VZbdD5mW9WVWdU1Hs2k9bKqm"
+isotope_ve = "VEEgcPaDDxbc3WBCTfkMLUxrhUzaiofJxw3Gh2RjFFT"
+
+[provider]
+cluster = "Localnet"
+wallet = "~/test.json"
