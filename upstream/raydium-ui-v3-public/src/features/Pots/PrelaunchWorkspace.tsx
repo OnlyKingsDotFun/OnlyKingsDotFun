@@ -38,7 +38,7 @@ export default function PrelaunchWorkspace({ view = 'pots' }: { view?: string })
         <section className={styles.launch} aria-labelledby="launch-heading">
           <div className={styles.launchTop}>
             <div>
-              <span className={styles.status}><span aria-hidden>●</span> NOT LIVE YET</span>
+              <span className={styles.status}><span aria-hidden>●</span> POOLS NOT LIVE YET</span>
               <h2 id="launch-heading">Creator fees fund the launch.</h2>
               <p>Launch waits until OnlyKingsDotFun’s pump.fun creator fees cover roughly 17.06 SOL plus deployment costs. At launch, the team will initialize a SOL + LST pool, a stablecoin pool, and a non-mayhem pump.fun memecoin pool.</p>
             </div>
@@ -47,6 +47,13 @@ export default function PrelaunchWorkspace({ view = 'pots' }: { view?: string })
               <strong>{launch.targetSol} <small>SOL</small></strong>
               <span>plus transaction &amp; setup costs</span>
             </div>
+          </div>
+          <div className={styles.token}>
+            <div className={styles.tokenIdentity}>
+              <span>OnlyKings token · Solana mint</span>
+              <code>{launch.tokenMint}</code>
+            </div>
+            <a className={styles.tokenLink} href={launch.pumpFunUrl} target="_blank" rel="noreferrer">View on pump.fun ↗</a>
           </div>
           <div className={styles.launchBottom}>
             <span>Team-funded · No deposits open</span>
@@ -100,8 +107,8 @@ export default function PrelaunchWorkspace({ view = 'pots' }: { view?: string })
         </main>
 
         <footer className={styles.footer}>
-          <span>OnlyKings.fun · Preview before launch</span>
-          <div><a href="/docs/">Docs &amp; maths</a><a href="https://github.com/OnlyKingsDotFun/OnlyKingsDotFun" target="_blank" rel="noreferrer">GitHub ↗</a><a href="https://t.me/onlykingsdotfun" target="_blank" rel="noreferrer">Telegram ↗</a></div>
+          <span>OnlyKings.fun · Pools not live yet</span>
+          <div><a href="/docs/">Docs &amp; maths</a><a href={launch.pumpFunUrl} target="_blank" rel="noreferrer">pump.fun ↗</a><a href="https://github.com/OnlyKingsDotFun/OnlyKingsDotFun" target="_blank" rel="noreferrer">GitHub ↗</a><a href="https://t.me/onlykingsdotfun" target="_blank" rel="noreferrer">Telegram ↗</a></div>
         </footer>
       </div>
     </div>

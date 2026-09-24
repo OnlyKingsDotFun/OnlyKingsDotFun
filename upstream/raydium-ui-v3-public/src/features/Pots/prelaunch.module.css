@@ -22,6 +22,12 @@
 .target>span { font-size:11px; color:#7d715a; }
 .target strong { font-size:34px; font-weight:600; letter-spacing:-1px; line-height:1.25; color:#4b3d20; }
 .target small { font-size:16px; letter-spacing:0; }
+.token { display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:12px 20px; margin-top:18px; }
+.tokenIdentity { display:flex; flex-direction:column; gap:4px; min-width:0; }
+.tokenIdentity span { font-size:11px; color:#7d715a; }
+.tokenIdentity code { font-size:12px; color:#4b3d20; overflow-wrap:anywhere; user-select:all; }
+.tokenLink { border:1px solid #d9c38f; border-radius:20px; padding:8px 14px; color:#625234; font-size:12px; font-weight:600; text-decoration:none; white-space:nowrap; }
+.tokenLink:hover { background:#f5ead2; }
 .launchBottom { border-top:1px solid #eadebf; margin-top:16px; padding:12px 0; display:flex; flex-wrap:wrap; align-items:start; justify-content:space-between; gap:8px 24px; font-size:11px; color:#7d715a; }
 .budgetDetails { max-width:100%; }
 .budgetDetails summary { cursor:pointer; color:#625234; font-weight:600; text-align:right; }
@@ -84,7 +90,7 @@
 .guide summary { cursor:pointer; }
 .guide a { color:#236ccc; text-decoration:underline; }
 .footer { display:flex; justify-content:space-between; padding:34px 0; margin-top:14px; font-size:11px; color:#9aa1aa; gap:15px; }
-.footer div { display:flex; gap:24px; }
+.footer div { display:flex; flex-wrap:wrap; justify-content:center; gap:12px 24px; }
 .footer a { color:#737373; text-decoration:none; }
 @media(max-width:640px) {
  .container { width:calc(100% - 28px); }
