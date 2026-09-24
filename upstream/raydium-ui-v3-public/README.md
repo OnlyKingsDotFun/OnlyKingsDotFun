@@ -42,3 +42,5 @@ Keep credentials in environment configuration. Never commit them.
 
 Source remains under its existing license; see `LICENSE` and preserved upstream
 notices. Rebranding does not change deployed program identities or token symbols.
+
+Optional `NEXT_PUBLIC_APP_VERSION_URL` may point to an OnlyKings release-version endpoint returning `{ "data": { "latest": "0.0.1", "least": "0.0.1" } }`. It is unset by default; upstream Raydium versions do not trigger OnlyKings update prompts.

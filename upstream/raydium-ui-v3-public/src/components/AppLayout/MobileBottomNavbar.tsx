@@ -7,7 +7,7 @@ import LiquidityPageThumbnailIcon from '@/icons/pageNavigation/LiquidityPageThum
 import MorePageThumbnailIcon from '@/icons/pageNavigation/MoreThumbnailIcon'
 import PortfolioPageThumbnailIcon from '@/icons/pageNavigation/PortfolioPageThumbnailIcon'
 import SwapPageThumbnailIcon from '@/icons/pageNavigation/SwapPageThumbnailIcon'
-import LaunchpadPageThumbnailIcon from '@/icons/pageNavigation/LaunchpadPageThumbnailIcon'
+import { BarChart2 } from 'react-feather'
 import { colors } from '@/theme/cssVariables'
 import { NavMoreButtonMenuPanel } from './components/NavMoreButtonMenuPanel'
 import { shrinkToValue } from '@/utils/shrinkToValue'
@@ -25,8 +25,8 @@ export function MobileBottomNavbar() {
   const isLiquidityActive = pathname === liquidityHref
   const protfolioHref = '/portfolio'
   const isPortfolioActive = pathname === protfolioHref
-  const launchpadHref = '/launchpad'
-  const isLaunchpadActive = pathname.includes(launchpadHref)
+  const gaugesHref = '/vote'
+  const isGaugesActive = pathname === gaugesHref
   const isMoreActive = pathname === '/staking'
 
   return (
@@ -64,10 +64,10 @@ export function MobileBottomNavbar() {
         isActive={pathname.includes('/collections')}
       />
       <BottomNavbarItem
-        href={launchpadHref}
-        text={t('launchpad.title')}
-        icon={(colorMode) => <LaunchpadPageThumbnailIcon colorMode={colorMode} isActive={isLaunchpadActive} />}
-        isActive={isLaunchpadActive}
+        href={gaugesHref}
+        text={t('vote.title')}
+        icon={<BarChart2 size={24} color={isGaugesActive ? colors.secondary : colors.textSecondary} />}
+        isActive={isGaugesActive}
       />
       <Menu size="lg" placement="top-end" offset={[0, 30]} /* make menu popup higher */>
         <MenuButton as="div">

@@ -1,4 +1,8 @@
+import PrelaunchWorkspace from '@/features/Pots/PrelaunchWorkspace'
+import { ONLYKINGS_LAUNCH } from '@/constants/launch'
 import { BRAND } from '@/constants/brand'
+import ThemeProvider from '@/provider/ThemeProvider'
+import GlobalColorProvider from '@/provider/GlobalColorProvider'
 import { getCookie } from 'cookies-next'
 import type { AppContext, AppProps } from 'next/app'
 import App from 'next/app'
@@ -15,7 +19,7 @@ import 'react-day-picker/dist/style.css'
 import { OnboardingDialog } from '@/components/Dialogs/OnboardingDialog'
 import { DialogManager } from '@/components/DialogManager'
 
-const DynamicProviders = dynamic(() => import('@/provider').then((mod) => mod.Providers))
+const DynamicProviders = dynamic(() => import('@/provider').then((mod) => mod.Providers), { ssr: false })
 const DynamicContent = dynamic(() => import('@/components/Content'))
 const DynamicAppNavLayout = dynamic(() => import('@/components/AppLayout/AppNavLayout'), { ssr: false })
 
@@ -43,7 +47,7 @@ const MyApp = ({ Component, pageProps, ...props }: AppProps) => {
         <meta property="og:image" content={`${BRAND.url}/social-card.png`} />
         <meta property="og:image:width" content="1200" />
         <meta property="og:image:height" content="630" />
-        <meta property="og:image:alt" content="OnlyKings.fun — Good assets. Better together." />
+        <meta property="og:image:alt" content="OnlyKings.fun — Like tokens. One pot." />
         <meta name="twitter:title" content={BRAND.name} />
         <meta name="twitter:description" content={BRAND.shortDescription} />
         <meta property="og:description" content={BRAND.shortDescription} />
@@ -58,19 +62,29 @@ const MyApp = ({ Component, pageProps, ...props }: AppProps) => {
         <link rel="manifest" href="/site.webmanifest" />
         <title>{pageProps?.title ? `${pageProps.title} · ${BRAND.name}` : BRAND.name}</title>
       </Head>
-      <DynamicProviders>
-        <DynamicContent {...props}>
-          {onlyContent ? (
+      {!ONLYKINGS_LAUNCH.live ? (
+        <PrelaunchWorkspace view={pathname.startsWith('/docs') ? (pathname.includes('stablecoins') ? 'stablecoins' : 'docs') : 'pots'} />
+      ) : pathname === '/' ? (
+        <ThemeProvider>
+          <GlobalColorProvider>
             <Component {...pageProps} />
-          ) : (
-            <DynamicAppNavLayout overflowHidden={overflowHidden}>
+          </GlobalColorProvider>
+        </ThemeProvider>
+      ) : (
+        <DynamicProviders>
+          <DynamicContent {...props}>
+            {onlyContent ? (
               <Component {...pageProps} />
-            </DynamicAppNavLayout>
-          )}
-        </DynamicContent>
-        <DialogManager />
-        <OnboardingDialog />
-      </DynamicProviders>
+            ) : (
+              <DynamicAppNavLayout overflowHidden={overflowHidden}>
+                <Component {...pageProps} />
+              </DynamicAppNavLayout>
+            )}
+          </DynamicContent>
+          <DialogManager />
+          <OnboardingDialog />
+        </DynamicProviders>
+      )}
     </>
   )
 }

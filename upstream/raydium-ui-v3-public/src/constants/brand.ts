@@ -2,9 +2,9 @@
 export const BRAND = {
   name: 'OnlyKings.fun',
   shortName: 'OnlyKings',
-  tagline: 'Good assets. Better together.',
-  shortDescription: 'Solana markets for swaps, liquidity, and collections of assets with something in common.',
+  tagline: 'Like tokens. One pot.',
+  shortDescription: 'Melting pots for like tokens. Choose a pot, pick what goes in and what comes out.',
   twitter: '',
   url: 'https://onlykings.fun',
-  themeColor: '#101115'
+  themeColor: '#f9fafb'
 }

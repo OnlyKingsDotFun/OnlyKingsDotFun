@@ -20,7 +20,7 @@ function useRefreshChainTime() {
     if (!raydium) return
     // fetchBlockSlotCountAct()
     const interval = window.setInterval(() => {
-      fetchBlockSlotCountAct()
+      void fetchBlockSlotCountAct().catch((error) => console.error('Unable to refresh slot timing', error))
     }, 1000 * 60 * 1)
 
     return () => window.clearInterval(interval)

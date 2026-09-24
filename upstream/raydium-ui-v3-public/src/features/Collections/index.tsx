@@ -1,4 +1,4 @@
-import { Box, Flex, Grid, Heading, Text, Tag, Button } from '@chakra-ui/react'
+import { Box, Flex, Grid, Heading, Text, Button } from '@chakra-ui/react'
 import { useTranslation } from 'react-i18next'
 import { colors } from '@/theme/cssVariables'
 import { panelCard } from '@/theme/cssBlocks'
@@ -44,10 +44,7 @@ export default function Collections() {
           <Text display={['none', 'block']}>{t('collections.members')}</Text>
         </Grid>
         <Flex direction="column" align="center" justify="center" py={16} gap={3} color={colors.textTertiary}>
-          <Tag size="sm" variant="subtle" bg={colors.backgroundTransparent12} color={colors.textSecondary}>
-            {t('collections.rule_pump')} · {t('collections.rule_lst')} · {t('collections.rule_launchpad')}
-          </Tag>
-          <Text fontSize="sm">{t('collections.empty')}</Text>
+          <Text fontSize="sm" textAlign="center" px={6} maxW="52ch">{t('collections.empty')}</Text>
         </Flex>
       </Box>
     </Flex>

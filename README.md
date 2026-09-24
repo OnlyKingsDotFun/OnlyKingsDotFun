@@ -20,11 +20,27 @@ source forks used by the collection-market stack.
 | `upstream/ray-gauges` | Gauge, reactor, and LP-escrow research fork |
 | `program` | Original collection-AMM prototype |
 
+## Delivery scope
+
+The requested product is **collection CPMM + collection CLMM + gauges**. Launch /
+graduation and Meteora are optional components, not required deployments for that
+scope. Both collection AMM forks exist. The custom gauge currently validates only
+CPMM-owned collections; CLMM gauge support and the live collections/voting UI are
+unfinished. The separate ray-gauges fork is also included for reference.
+
 The historical Rust crate and SDK names stay unchanged for compatibility. Public
 product identity is OnlyKings.fun. See [the product model](docs/ONLYKINGS.md),
 [deployment costs](docs/DEPLOYMENT-COSTS.md), and the web app README.
 
 ## Run the web app
+
+The production prelaunch site lives in `site/` and uses the shared OnlyKings UI.
+Run `npm ci --prefix site`, `npm run build --prefix site`, and `npm test --prefix site`.
+Its published routes include [protocol maths](https://onlykings.fun/docs/) and
+[Solana stablecoin research](https://onlykings.fun/docs/stablecoins/).
+Financial actions remain closed pending funding and verified contract deployment.
+
+For the inherited full trading interface and SDK development:
 
 Use Node 24 and Yarn classic. Build the local SDK, then run the frontend:
 

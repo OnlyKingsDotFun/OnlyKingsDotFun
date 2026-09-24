@@ -12,7 +12,11 @@ identified below, not a promise that they match a future rebuild.
 | Voting / treasury | 607,104 | 3.08580028 |
 | Optional DBC fork | 1,499,184 | 7.61756668 |
 
-**Four core programs: 19.27337776 SOL.** Including a separately deployed DBC
+**Requested scope (CPMM + CLMM + current gauge binary): 17.05914292 SOL.**
+The current gauge binary supports CPMM collections only; adding CLMM support
+requires a rebuild and updated size/rent calculation.
+
+Including optional launch/graduation: **19.27337776 SOL**. Adding a separately deployed DBC
 fork: **26.89094444 SOL**. Using Meteora's existing deployment avoids paying to
 redeploy DBC; it does not remove any configuration or liquidity requirements.
 

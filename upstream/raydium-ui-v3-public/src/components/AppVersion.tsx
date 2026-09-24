@@ -18,11 +18,12 @@ export default function AppVersion() {
       priorityMode: getStorageItem(PRIORITY_MODE_KEY) ? Number(getStorageItem(PRIORITY_MODE_KEY)) : PriorityMode.MaxCap
     })
 
-    const interval = window.setInterval(() => {
-      checkAppVersionAct()
-    }, 60 * 1000 * 2)
-    checkAppVersionAct()
-    useAppStore.getState().fetchPriorityFeeAct()
+    const checkVersion = () => {
+      void checkAppVersionAct().catch((error) => console.error('Unable to check app version', error))
+    }
+    const interval = window.setInterval(checkVersion, 60 * 1000 * 2)
+    checkVersion()
+    void useAppStore.getState().fetchPriorityFeeAct().catch((error) => console.error('Unable to load priority fees', error))
     return () => window.clearInterval(interval)
   }, [checkAppVersionAct])
 

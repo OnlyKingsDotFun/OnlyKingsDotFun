@@ -1,0 +1,360 @@
+{
+  "observedAt": "2026-09-24T03:31:15.313968+00:00",
+  "mints": {
+    "USDC": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+    "USDT": "Es9vMFrzaCERmJfrF4H2FYD4KCoNkY11McCe8BenwNYB",
+    "PYUSD": "2b1kV6DkPAnxd5ixfnxCpjxmKwqjjaYmCZfHsFu24GXo",
+    "USDG": "2u1tszSeqZ3qBWF3uNGPFc8TzMk2tdiwknnRMWGWjGWH",
+    "FDUSD": "9zNQRsGLjNKwCUU5Gq5LR8beUCPzQMVMqKAi3SSZh54u",
+    "USD1": "USD1ttGY1N17NEEHLmELoaybftRBUSErhqYiQzvEmuB",
+    "USDS": "USDSwr9ApdHk5bvJKMjzff41FfuX8bSxdKcR81vTwcA"
+  },
+  "rpc": {
+    "jsonrpc": "2.0",
+    "result": {
+      "context": {
+        "apiVersion": "4.3.0-rc.0",
+        "slot": 449907220
+      },
+      "value": [
+        {
+          "data": {
+            "parsed": {
+              "info": {
+                "decimals": 6,
+                "freezeAuthority": "7dGbd2QZcCKcTndnHcTL8q7SMVXAkp688NTQYwrRCrar",
+                "isInitialized": true,
+                "mintAuthority": "BJE5MMbqXjVwjAF7oxwPYXnTXDyspzZyt4vwenNw5ruG",
+                "supply": "8582816152917314"
+              },
+              "type": "mint"
+            },
+            "program": "spl-token",
+            "space": 82
+          },
+          "executable": false,
+          "lamports": 534788257985,
+          "owner": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA",
+          "rentEpoch": 18446744073709551615,
+          "space": 82
+        },
+        {
+          "data": {
+            "parsed": {
+              "info": {
+                "decimals": 6,
+                "freezeAuthority": "Q6XprfkF8RQQKoQVG33xT88H7wi8Uk1B1CC7YAs69Gi",
+                "isInitialized": true,
+                "mintAuthority": "Q6XprfkF8RQQKoQVG33xT88H7wi8Uk1B1CC7YAs69Gi",
+                "supply": "3839903683099515"
+              },
+              "type": "mint"
+            },
+            "program": "spl-token",
+            "space": 82
+          },
+          "executable": false,
+          "lamports": 212997225190,
+          "owner": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA",
+          "rentEpoch": 18446744073709551615,
+          "space": 82
+        },
+        {
+          "data": {
+            "parsed": {
+              "info": {
+                "decimals": 6,
+                "extensions": [
+                  {
+                    "extension": "mintCloseAuthority",
+                    "state": {
+                      "closeAuthority": "2apBGMsS6ti9RyF5TwQTDswXBWskiJP2LD4cUEDqYJjk"
+                    }
+                  },
+                  {
+                    "extension": "permanentDelegate",
+                    "state": {
+                      "delegate": "2apBGMsS6ti9RyF5TwQTDswXBWskiJP2LD4cUEDqYJjk"
+                    }
+                  },
+                  {
+                    "extension": "transferFeeConfig",
+                    "state": {
+                      "newerTransferFee": {
+                        "epoch": 605,
+                        "maximumFee": 0,
+                        "transferFeeBasisPoints": 0
+                      },
+                      "olderTransferFee": {
+                        "epoch": 605,
+                        "maximumFee": 0,
+                        "transferFeeBasisPoints": 0
+                      },
+                      "transferFeeConfigAuthority": "2apBGMsS6ti9RyF5TwQTDswXBWskiJP2LD4cUEDqYJjk",
+                      "withdrawWithheldAuthority": "2apBGMsS6ti9RyF5TwQTDswXBWskiJP2LD4cUEDqYJjk",
+                      "withheldAmount": 0
+                    }
+                  },
+                  {
+                    "extension": "confidentialTransferMint",
+                    "state": {
+                      "auditorElgamalPubkey": null,
+                      "authority": "2apBGMsS6ti9RyF5TwQTDswXBWskiJP2LD4cUEDqYJjk",
+                      "autoApproveNewAccounts": false
+                    }
+                  },
+                  {
+                    "extension": "confidentialTransferFeeConfig",
+                    "state": {
+                      "authority": "2apBGMsS6ti9RyF5TwQTDswXBWskiJP2LD4cUEDqYJjk",
+                      "harvestToMintEnabled": true,
+                      "withdrawWithheldAuthorityElgamalPubkey": "HDfmQztzBN2Cc3rkDZuL88SfWw5sSajVMyiz5QaQHFc=",
+                      "withheldAmount": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=="
+                    }
+                  },
+                  {
+                    "extension": "transferHook",
+                    "state": {
+                      "authority": "2apBGMsS6ti9RyF5TwQTDswXBWskiJP2LD4cUEDqYJjk",
+                      "programId": null
+                    }
+                  },
+                  {
+                    "extension": "metadataPointer",
+                    "state": {
+                      "authority": "2apBGMsS6ti9RyF5TwQTDswXBWskiJP2LD4cUEDqYJjk",
+                      "metadataAddress": "2b1kV6DkPAnxd5ixfnxCpjxmKwqjjaYmCZfHsFu24GXo"
+                    }
+                  },
+                  {
+                    "extension": "tokenMetadata",
+                    "state": {
+                      "additionalMetadata": [],
+                      "mint": "2b1kV6DkPAnxd5ixfnxCpjxmKwqjjaYmCZfHsFu24GXo",
+                      "name": "PayPal USD",
+                      "symbol": "PYUSD",
+                      "updateAuthority": "2apBGMsS6ti9RyF5TwQTDswXBWskiJP2LD4cUEDqYJjk",
+                      "uri": "https://token-metadata.paxos.com/pyusd_metadata/prod/solana/pyusd_metadata.json"
+                    }
+                  }
+                ],
+                "freezeAuthority": "2apBGMsS6ti9RyF5TwQTDswXBWskiJP2LD4cUEDqYJjk",
+                "isInitialized": true,
+                "mintAuthority": "8Jornc27vtAYPkwDzsZVgLQchAYyC8nD7aCNPCDV8Qk2",
+                "supply": "744694941585210"
+              },
+              "type": "mint"
+            },
+            "program": "spl-token-2022",
+            "space": 866
+          },
+          "executable": false,
+          "lamports": 2078412093,
+          "owner": "TokenzQdBNbLqP5VEhdkAS6EPFLC1PHnBqCXEpPxuEb",
+          "rentEpoch": 18446744073709551615,
+          "space": 866
+        },
+        {
+          "data": {
+            "parsed": {
+              "info": {
+                "decimals": 6,
+                "extensions": [
+                  {
+                    "extension": "mintCloseAuthority",
+                    "state": {
+                      "closeAuthority": "2apBGMsS6ti9RyF5TwQTDswXBWskiJP2LD4cUEDqYJjk"
+                    }
+                  },
+                  {
+                    "extension": "permanentDelegate",
+                    "state": {
+                      "delegate": "2apBGMsS6ti9RyF5TwQTDswXBWskiJP2LD4cUEDqYJjk"
+                    }
+                  },
+                  {
+                    "extension": "transferFeeConfig",
+                    "state": {
+                      "newerTransferFee": {
+                        "epoch": 722,
+                        "maximumFee": 0,
+                        "transferFeeBasisPoints": 0
+                      },
+                      "olderTransferFee": {
+                        "epoch": 722,
+                        "maximumFee": 0,
+                        "transferFeeBasisPoints": 0
+                      },
+                      "transferFeeConfigAuthority": "2apBGMsS6ti9RyF5TwQTDswXBWskiJP2LD4cUEDqYJjk",
+                      "withdrawWithheldAuthority": "2apBGMsS6ti9RyF5TwQTDswXBWskiJP2LD4cUEDqYJjk",
+                      "withheldAmount": 0
+                    }
+                  },
+                  {
+                    "extension": "confidentialTransferMint",
+                    "state": {
+                      "auditorElgamalPubkey": null,
+                      "authority": "2apBGMsS6ti9RyF5TwQTDswXBWskiJP2LD4cUEDqYJjk",
+                      "autoApproveNewAccounts": false
+                    }
+                  },
+                  {
+                    "extension": "confidentialTransferFeeConfig",
+                    "state": {
+                      "authority": "2apBGMsS6ti9RyF5TwQTDswXBWskiJP2LD4cUEDqYJjk",
+                      "harvestToMintEnabled": true,
+                      "withdrawWithheldAuthorityElgamalPubkey": "JtHMep09Cn/hbtk35WhESnMWz/fHSkVULuCwpLLu7m0=",
+                      "withheldAmount": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=="
+                    }
+                  },
+                  {
+                    "extension": "transferHook",
+                    "state": {
+                      "authority": "2apBGMsS6ti9RyF5TwQTDswXBWskiJP2LD4cUEDqYJjk",
+                      "programId": null
+                    }
+                  },
+                  {
+                    "extension": "metadataPointer",
+                    "state": {
+                      "authority": "2apBGMsS6ti9RyF5TwQTDswXBWskiJP2LD4cUEDqYJjk",
+                      "metadataAddress": "2u1tszSeqZ3qBWF3uNGPFc8TzMk2tdiwknnRMWGWjGWH"
+                    }
+                  },
+                  {
+                    "extension": "tokenMetadata",
+                    "state": {
+                      "additionalMetadata": [],
+                      "mint": "2u1tszSeqZ3qBWF3uNGPFc8TzMk2tdiwknnRMWGWjGWH",
+                      "name": "Global Dollar",
+                      "symbol": "USDG",
+                      "updateAuthority": "2apBGMsS6ti9RyF5TwQTDswXBWskiJP2LD4cUEDqYJjk",
+                      "uri": "https://token-metadata.paxos.com/usdg_metadata/prod/solana/usdg_metadata.json"
+                    }
+                  }
+                ],
+                "freezeAuthority": "2apBGMsS6ti9RyF5TwQTDswXBWskiJP2LD4cUEDqYJjk",
+                "isInitialized": true,
+                "mintAuthority": "3YJL8sesK3ooPpJddypvFUhCvnvaQ1oF8This4J3bhxR",
+                "supply": "631640496441224"
+              },
+              "type": "mint"
+            },
+            "program": "spl-token-2022",
+            "space": 866
+          },
+          "executable": false,
+          "lamports": 562701269,
+          "owner": "TokenzQdBNbLqP5VEhdkAS6EPFLC1PHnBqCXEpPxuEb",
+          "rentEpoch": 18446744073709551615,
+          "space": 866
+        },
+        {
+          "data": {
+            "parsed": {
+              "info": {
+                "decimals": 6,
+                "freezeAuthority": "83HyrPyXfzUoVFHrxBNPQzUKEarBa6HkAtL8z3bYj4QF",
+                "isInitialized": true,
+                "mintAuthority": "9eXtLy4zFu2kKdWDJBfAKD7TvwtTA1zrZHHJXnCkUpGf",
+                "supply": "8528077190398"
+              },
+              "type": "mint"
+            },
+            "program": "spl-token",
+            "space": 82
+          },
+          "executable": false,
+          "lamports": 27321708,
+          "owner": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA",
+          "rentEpoch": 18446744073709551615,
+          "space": 82
+        },
+        {
+          "data": {
+            "parsed": {
+              "info": {
+                "decimals": 6,
+                "freezeAuthority": "84ssq8Ud2WRzxVCuEmPa9xLPBUt4odmB8wuE8svZkh71",
+                "isInitialized": true,
+                "mintAuthority": "BQh68x9D7TDqgJUXiJX1BsD1eR7kkV978owqwBEftpwK",
+                "supply": "1380641138010872"
+              },
+              "type": "mint"
+            },
+            "program": "spl-token",
+            "space": 82
+          },
+          "executable": false,
+          "lamports": 6601790979,
+          "owner": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA",
+          "rentEpoch": 18446744073709551615,
+          "space": 82
+        }
+      ]
+    },
+    "id": 1
+  },
+  "raydium": {
+    "USDC": {
+      "error": "HTTP Error 403: Forbidden",
+      "url": "https://api-v3.raydium.io/pools/info/mint?mint1=EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v&poolType=all&poolSortField=liquidity&sortType=desc&pageSize=3&page=1"
+    },
+    "USDT": {
+      "error": "HTTP Error 403: Forbidden",
+      "url": "https://api-v3.raydium.io/pools/info/mint?mint1=Es9vMFrzaCERmJfrF4H2FYD4KCoNkY11McCe8BenwNYB&poolType=all&poolSortField=liquidity&sortType=desc&pageSize=3&page=1"
+    },
+    "PYUSD": {
+      "error": "HTTP Error 403: Forbidden",
+      "url": "https://api-v3.raydium.io/pools/info/mint?mint1=2b1kV6DkPAnxd5ixfnxCpjxmKwqjjaYmCZfHsFu24GXo&poolType=all&poolSortField=liquidity&sortType=desc&pageSize=3&page=1"
+    },
+    "USDG": {
+      "error": "HTTP Error 403: Forbidden",
+      "url": "https://api-v3.raydium.io/pools/info/mint?mint1=2u1tszSeqZ3qBWF3uNGPFc8TzMk2tdiwknnRMWGWjGWH&poolType=all&poolSortField=liquidity&sortType=desc&pageSize=3&page=1"
+    },
+    "FDUSD": {
+      "error": "HTTP Error 403: Forbidden",
+      "url": "https://api-v3.raydium.io/pools/info/mint?mint1=9zNQRsGLjNKwCUU5Gq5LR8beUCPzQMVMqKAi3SSZh54u&poolType=all&poolSortField=liquidity&sortType=desc&pageSize=3&page=1"
+    },
+    "USD1": {
+      "error": "HTTP Error 403: Forbidden",
+      "url": "https://api-v3.raydium.io/pools/info/mint?mint1=USD1ttGY1N17NEEHLmELoaybftRBUSErhqYiQzvEmuB&poolType=all&poolSortField=liquidity&sortType=desc&pageSize=3&page=1"
+    }
+  },
+  "usdsRpc": {
+    "jsonrpc": "2.0",
+    "result": {
+      "context": {
+        "apiVersion": "4.3.0-rc.0",
+        "slot": 449907763
+      },
+      "value": [
+        {
+          "data": {
+            "parsed": {
+              "info": {
+                "decimals": 6,
+                "freezeAuthority": "AYPtjx4Hc8us1ikULUedkmZ3wtiD6tmL7gK3qe4V3oHt",
+                "isInitialized": true,
+                "mintAuthority": "BEvTHkTyXooyaJzP8egDUC7WQK8cyRrq5WvERZNWhuah",
+                "supply": "6230879934595"
+              },
+              "type": "mint"
+            },
+            "program": "spl-token",
+            "space": 82
+          },
+          "executable": false,
+          "lamports": 201461601,
+          "owner": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA",
+          "rentEpoch": 18446744073709551615,
+          "space": 82
+        }
+      ]
+    },
+    "id": 2
+  },
+  "dexscreener": {
+    "error": "HTTP Error 403: Forbidden"
+  }
+}

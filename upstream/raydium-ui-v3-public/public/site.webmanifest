@@ -1,13 +1,21 @@
 {
   "name": "OnlyKings.fun",
   "short_name": "OnlyKings",
-  "description": "Solana markets for swaps, liquidity, and collections.",
+  "description": "Melting pots for like tokens. Choose what goes in and what comes out.",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#101115",
   "theme_color": "#101115",
   "icons": [
-    {"src": "/icon-192.png", "sizes": "192x192", "type": "image/png"},
-    {"src": "/icon-512.png", "sizes": "512x512", "type": "image/png"}
+    {
+      "src": "/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
   ]
 }

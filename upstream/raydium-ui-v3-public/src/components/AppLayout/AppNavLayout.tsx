@@ -11,8 +11,6 @@ import {
   Box,
   Flex,
   HStack,
-  Menu,
-  MenuButton,
   Modal,
   ModalBody,
   ModalCloseButton,
@@ -32,7 +30,6 @@ import { MobileBottomNavbar } from './MobileBottomNavbar'
 import { ColorThemeSettingField } from './components/ColorThemeSettingField'
 import { DefaultExplorerSettingField } from './components/DefaultExplorerSettingField'
 import { LanguageSettingField } from './components/LanguageSettingField'
-import { NavMoreButtonMenuPanel } from './components/NavMoreButtonMenuPanel'
 import { RPCConnectionSettingField } from './components/RPCConnectionSettingField'
 import { Divider } from './components/SettingFieldDivider'
 import { SlippageToleranceSettingField } from './components/SlippageToleranceSettingField'
@@ -105,7 +102,6 @@ function AppNavLayout({
               title={t('liquidity.title')}
             />
             <RouteLink href="/collections" isActive={pathname.includes('/collections')} title={t('collections.title')} />
-            <RouteLink href="/launchpad" isActive={pathname.includes('/launchpad')} title={t('launchpad.title')} />
             <RouteLink href="/vote" isActive={pathname === '/vote'} title={t('vote.title')} />
             <RouteLink href="/portfolio" isActive={pathname === '/portfolio'} title={t('portfolio.title')} />
           </HStack>
@@ -195,10 +191,13 @@ function RouteLink({
 
 function SettingsMenu() {
   const { isOpen, onClose, onOpen } = useDisclosure()
-  const triggerRef = useRef<HTMLDivElement>(null)
+  const triggerRef = useRef<HTMLButtonElement>(null)
   return (
     <>
       <Box
+        as="button"
+        type="button"
+        aria-label="Settings"
         w={10}
         h={10}
         p="0"
@@ -217,7 +216,7 @@ function SettingsMenu() {
   )
 }
 
-function SettingsMenuModalContent(props: { isOpen: boolean; triggerRef: React.RefObject<HTMLDivElement>; onClose: () => void }) {
+function SettingsMenuModalContent(props: { isOpen: boolean; triggerRef: React.RefObject<HTMLButtonElement>; onClose: () => void }) {
   const contentRef = useRef<HTMLDivElement>(null)
   const { t } = useTranslation()
   const triggerPanelGap = 8

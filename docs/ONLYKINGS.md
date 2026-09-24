@@ -1,5 +1,11 @@
 # OnlyKings.fun, explained to someone who already knows what an AMM is
 
+> Historical design overview. For current implemented behavior, limits, rounding,
+> fee accounting, and unfinished integration, use [Maths & fees](MATHS.md).
+> Production swaps and deposits are not live. Collection pools currently allow
+> at most eight members with equal decimals; finite swaps are curve-priced and
+> are not guaranteed to execute at a fixed 1:1 rate.
+
 **TL;DR.** A stable is a stable, an LST is an LST, a meme is a meme, more or less. Every AMM today still prices each pair as an island. OnlyKings.fun adds one primitive to Raydium's CPMM and CLMM: a **collection**, a rule-defined set of tokens that are "the same thing, more or less", and a **multipool** where any two members of a collection trade directly against each other inside one pool at a fraction of the normal fee. Trades that repair a pool are cheap; trades that push it off-balance pay full price. That is the whole trick, and the whole invite to arbitrage.
 
 ---
@@ -97,4 +103,4 @@ Working, tested against real mainnet state and real Meteora programs on local fo
 
 Not yet: UI wired to the SDK, public-cluster deploy (testnet was frozen), LaunchLab platform config pointed at the ve treasury, audit.
 
-Current measured rent: **19.27337776 SOL** for the four core binaries, before transaction fees, configuration, and liquidity. See [the measured breakdown](DEPLOYMENT-COSTS.md).
+Current measured rent: **17.05914292 SOL** for collection CPMM, collection CLMM, and the existing CPMM-only gauge binary. Optional launch/graduation raises this to **19.27337776 SOL**, before transaction fees, configuration, and liquidity. See [the measured breakdown](DEPLOYMENT-COSTS.md).

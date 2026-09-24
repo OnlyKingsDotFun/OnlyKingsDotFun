@@ -123,7 +123,7 @@ function useInitConnection(props: SSRData) {
   // fetch rpc nodes
   useEffect(() => {
     if (!useAppStore.getState().rpcs?.length) {
-      fetchRpcsAct()
+      void fetchRpcsAct().catch((error) => console.error('Unable to load RPC connections', error))
     }
   }, [fetchRpcsAct, urlConfigs.BASE_HOST])
 
@@ -153,7 +153,10 @@ function useInitConnection(props: SSRData) {
 
     const ssrReloadData = isNeedReload ? {} : props
 
-    initRaydiumAct({ connection, ...ssrReloadData })
+    void initRaydiumAct({ connection, ...ssrReloadData }).catch((error) => {
+      useAppStore.setState({ initialing: false })
+      console.error('Unable to initialize market data', error)
+    })
     // eslint-disable-next-line
   }, [initRaydiumAct, connection?.rpcEndpoint, raydium, signAllTransactions, isNeedReload])
 

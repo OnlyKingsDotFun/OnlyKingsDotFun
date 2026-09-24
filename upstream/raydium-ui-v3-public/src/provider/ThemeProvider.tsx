@@ -34,8 +34,6 @@ const ThemeProvider: FC<{ children: ReactNode }> = ({ children }) => {
         }
         * {
           box-sizing: border-box;
-          outline: none !important; /* without !important, the priority is not high enough */
-          --chakra-shadows-outline: none !important;
           /* user-select: none; disable user-select so it is like a web app not web document */
         }
         :focus-visible {

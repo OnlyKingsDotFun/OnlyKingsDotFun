@@ -18,30 +18,15 @@ export default function ProductGuide() {
           {BRAND.tagline}
         </Heading>
         <Text mt={5} fontSize="lg" color={colors.textSecondary}>
-          OnlyKings.fun brings swaps, liquidity, and the idea of shared-asset markets into one place.
+          Think of a pot as a melting pot for like tokens. Choose a pot, put one token in, and take another token out.
         </Text>
       </Box>
       {[
-        [
-          'Trade from your wallet',
-          'Choose your tokens in Swap, review the quote and fees, then approve the transaction in your wallet. Existing market data and routes use Raydium infrastructure.'
-        ],
-        [
-          'Explore liquidity',
-          'Browse available pools and manage liquidity positions. Pool fees, asset exposure, and price ranges differ; review the details of each position.'
-        ],
-        [
-          'Understand collections',
-          'A collection groups assets that satisfy a common rule, such as stablecoins or liquid staking tokens. The planned multipool interface lets collection members trade within the same pool. The directory and creation flow are still being integrated.'
-        ],
-        [
-          'Have a say',
-          'The planned voting system connects locks, collection votes, and fee claims. Voting is not live in this interface yet.'
-        ],
-        [
-          'Launch with clarity',
-          'The Launch page currently uses the inherited Raydium launch integration. The custom collection graduation flow is separate and is not available in the interface yet.'
-        ]
+        ['Find your pot', 'Dollar tokens go with dollar tokens. Staked SOL tokens go with tokens backed by SOL. Each pot tells you which tokens belong.'],
+        ['Pick what goes in and out', 'Choose a token you have, enter an amount, and choose another token in the same pot. You do not need to choose a market-making engine or understand its mechanics.'],
+        ['Review and confirm', 'See what you give, what you receive, and the fee before your wallet asks you to approve. The live quote is the amount to use.'],
+        ['The pot’s rate', 'One-to-one is the default reference rate. Staked tokens can use the value of the SOL underneath. Fees and the balance of tokens in the pot affect the final amount you receive.'],
+        ['What is available today', 'The pots directory and in-pot swaps are still being connected. The separate Swap and Liquidity pages use existing market integrations. No example pot here represents a live balance or completed swap.']
       ].map(([title, body], index) => (
         <Flex key={title} gap={5} borderTop={`1px solid ${colors.dividerBg}`} pt={6}>
           <Text color={colors.secondary} fontFamily="mono" fontSize="sm">
@@ -57,8 +42,18 @@ export default function ProductGuide() {
           </Box>
         </Flex>
       ))}
-      <Button as={Link} href="/swap" alignSelf="start">
-        Explore the exchange ↗
+      <Box as="details" borderTop={`1px solid ${colors.dividerBg}`} pt={6}>
+        <Box as="summary" cursor="pointer" color={colors.textSecondary}>
+          Under the hood
+        </Box>
+        <Text mt={4} color={colors.textTertiary} lineHeight="1.8">
+          Pots use collection pools in the CPMM and CLMM forks. Within a pot, swaps use a curve that prices tokens around their
+          reference rates. The gauge program supports CPMM collections; CLMM gauges and the voting interface still need integration.
+          Launch and graduation programs are optional.
+        </Text>
+      </Box>
+      <Button as={Link} href="/collections" alignSelf="start">
+        Explore pots ↗
       </Button>
     </VStack>
   )

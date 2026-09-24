@@ -320,7 +320,7 @@ export const useAppStore = createStore<AppState>(
           if (!success) {
             i++
             if (i < readyRpcs.length) {
-              checkAndSetRpcNode()
+              await checkAndSetRpcNode()
             } else {
               console.error('All RPCs failed.')
             }
@@ -329,9 +329,9 @@ export const useAppStore = createStore<AppState>(
 
         if (localRpcNode && !localRpcNode.rpcNode && isValidUrl(localRpcNode.url)) {
           const success = await setRpcUrlAct(localRpcNode.url!, true, true)
-          if (!success) checkAndSetRpcNode()
+          if (!success && rpcs.length) await checkAndSetRpcNode()
         } else {
-          checkAndSetRpcNode()
+          if (rpcs.length) await checkAndSetRpcNode()
         }
       } finally {
         rpcLoading = false
@@ -393,11 +393,14 @@ export const useAppStore = createStore<AppState>(
       set({ aprMode: mode })
     },
     checkAppVersionAct: async () => {
-      const { urlConfigs, appVersion } = get()
+      // An upstream Raydium release is not an OnlyKings release.
+      const versionUrl = process.env.NEXT_PUBLIC_APP_VERSION_URL
+      if (!versionUrl) return
+      const { appVersion } = get()
       const res = await axios.get<{
         latest: string
         least: string
-      }>(`${urlConfigs.BASE_HOST}${urlConfigs.VERSION}`)
+      }>(versionUrl)
       set({ needRefresh: compare(appVersion, res.data.latest, '<') })
     },
 
